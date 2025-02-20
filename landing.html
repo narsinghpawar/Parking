@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Binary & Restore</title>
+</head>
+
+<body>
+    <input type="file" id="uploadImage" accept="image/*">
+    
+    <br>
+    <img id="previewImage" style="max-width: 300px; display: none;">
+
+    <script>
+        document.getElementById('uploadImage').addEventListener('change', function (event) {
+            let file = event.target.files[0]; // Get uploaded file
+            let reader = new FileReader();
+
+            reader.onload = function () {
+                let binaryData = reader.result; // Convert image to binary
+                localStorage.setItem("storedImage", binaryData); // Store binary data
+                document.getElementById("previewImage").src = binaryData; // Preview image
+                document.getElementById("previewImage").style.display = "block";
+            };
+
+            reader.readAsDataURL(file); // Convert to Base64
+        });
+
+        
+    </script>
+</body>
+
+</html>

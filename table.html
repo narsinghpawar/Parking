@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+   <style>
+   body {
+  font-family: "Roboto", sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+}
+
+/* Container for content */
+.container {
+  width: 80%;
+  max-width: 80%;
+  background: white;
+  padding: 20px;
+  margin: 40px auto; 
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  opacity: 0.95;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+th {
+  background: #673ab7;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #eee;
+}
+
+/* Status icons */
+.status i {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.parked {
+  color: green;
+}
+
+.moved-out {
+  color: red;
+}
+
+/* Material Design Header */
+.mdl-layout__header {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.mdl-mini-footer {
+  background: #3f51b5; /* Matching blue color */
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between; /* Push content to the edges */
+  align-items: center;
+  flex-wrap: wrap; /* Ensure responsiveness */
+}
+
+.mdl-mini-footer__left-section {
+  font-size: 14px;
+}
+
+.mdl-mini-footer__right-section {
+  display: flex;
+  gap: 20px;
+}
+
+.mdl-mini-footer__right-section a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+}
+
+.mdl-mini-footer__right-section a:hover {
+  text-decoration: underline;
+  color: #ffeb3b; /* Highlight effect on hover */
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .mdl-mini-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mdl-mini-footer__right-section {
+    margin-top: 10px;
+    justify-content: center;
+  }
+}
+.mdl-layout__header {
+  background: #3f51b5; /* Material Blue */
+  color: white;
+}
+
+.mdl-layout__header-row {
+  display: flex;
+  align-items: center;
+}
+
+.mdl-layout-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left; /* Ensures the title stays left-aligned */
+}
+
+
+   </style>
+</head>
+
+<body>
+
+    <div class="mdl-layout mdl-js-layout">
+        <header class="mdl-layout__header mdl-shadow--4dp">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Parking Management System</span>
+            </div>
+        </header>
+
+        <main class="mdl-layout__content">
+            <div class="container mdl-card mdl-shadow--4dp">
+                <details class="mdl-card__supporting-text">
+                    <summary class="mdl-typography--subhead">MH12AB1234</summary>
+                    <div class="table-container">
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">ID</th>
+                                    <th>Mobile Number</th>
+                                    <th>Vehicle Number</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">101</td>
+                                    <td>9876543210</td>
+                                    <td>MH12AB1234</td>
+                                    <td class="status"><i class="fas fa-motorcycle parked"></i></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">102</td>
+                                    <td>8765432109</td>
+                                    <td>MH12AB1234</td>
+                                    <td class="status"><i class="fas fa-sign-out-alt moved-out"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+
+                <details class="mdl-card__supporting-text">
+                    <summary class="mdl-typography--subhead">TN09PQ5678</summary>
+                    <div class="table-container">
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">ID</th>
+                                    <th>Mobile Number</th>
+                                    <th>Vehicle Number</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">201</td>
+                                    <td>9988776655</td>
+                                    <td>TN09PQ5678</td>
+                                    <td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">202</td>
+                                    <td>8877665544</td>
+                                    <td>TN09PQ5678</td>
+                                    <td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </main>
+
+        <!-- FOOTER SECTION -->
+    <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+            © 2025 Parking Management System
+        </div>
+        <div class="mdl-mini-footer__right-section">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+    </div>
+
+</body>
+
+</html>

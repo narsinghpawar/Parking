@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store and Restore Image</title>
+</head>
+
+<body>
+    <input type="file" id="fileInput" accept="image/*">
+    <button onclick="storeImage()">Store Image</button>
+    <button onclick="restoreImage()">Restore Image</button>
+    <br>
+    <img id="avatarPreview" src="" alt="User Avatar" style="display: none; width: 150px;">
+
+    <script>
+        function storeImage() {
+            let fileInput = document.getElementById("fileInput");
+            let file = fileInput.files[0];
+
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (event) {
+                    let base64String = event.target.result; // Convert to Base64
+                    localStorage.setItem("storedImage", base64String); // Store in localStorage
+                    alert("Image stored successfully!");
+                };
+                reader.readAsDataURL(file); // Convert image to Base64
+            } else {
+                alert("Please select an image first.");
+            }
+        }
+
+        function restoreImage() {
+            let storedImage = localStorage.getItem("storedImage");
+            if (storedImage) {
+                let imgElement = document.getElementById("avatarPreview");
+                imgElement.src = storedImage; // Set the Base64 image
+                imgElement.style.display = "block"; // Show the image
+            } else {
+                alert("No image stored!");
+            }
+        }
+    </script>
+</body>
+
+</html>

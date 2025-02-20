@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Profile with Camera Icon</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="/js/script.js"></script>
+</head>
+
+<body>
+    <div class="toast-container"></div>
+    <div class="header">Parking Managment System</div>
+    <div class="breadcrumb">
+        <a href="#" class="back-arrow">←</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <span class="separator">/</span>
+        <a href="#">Checkin Vehicle Details</a>
+    </div>
+    <!-- Modal Box -->
+    <div class="modal">
+        <!-- Avatar with Camera Upload -->
+        <p style="font-weight: bold;">Check in using mobile number</p>
+
+        <!-- Material Design Input Fields -->
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input input-focus" type="text" id="mobile">
+                <label class="mdl-textfield__label" for="mobile">Mobile number <span class="asterisk"> *</span></label>
+            </div>
+        </form>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="validateForm()">
+            Check in
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">© 2025 Vehicle Registration. All Rights Reserved.</div>
+    <script>
+        function closeModal() {
+            alert("Close button clicked!");
+        }
+
+        function previewAvatar(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var avatar = document.getElementById('avatarPreview');
+                avatar.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+</body>
+
+</html>

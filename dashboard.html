@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="/js/script.js"></script>
+    <title>Dashboard Cards</title>
+</head>
+
+<body>
+    <div class="header">Parking Managment System</div>
+    <div class="breadcrumb">
+        <a href="#">Dashboard</a>
+    </div>
+
+    <div class="outer-div">
+        <p style="font-weight: bold;">Dashboard Summary</p>
+        <div class="card-container">
+            <div class="card booking">
+                <i class="fas fa-book icon"></i>
+                <h2>150</h2>
+                <p>Total Register Vehicle</p>
+                <a href="#" class="more-info" onclick="registrationScreen()">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        
+            <div class="card parking">
+                <i class="fas fa-parking icon"></i>
+                <h2>53</h2>
+                <p>Total Vehicle Parked</p>
+                <a href="#" class="more-info" onclick="dataTableScreen()">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        
+            <!-- <div class="card vehicle">
+                <i class="fas fa-car icon"></i>
+                <h2>53</h2>
+                <p>Total Vehicle Moved Out</p>
+                <a href="#" class="more-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div> -->
+        
+            <div class="card owner">
+                <i class="fas fa-sign-in icon"></i>
+                <h2>53</h2>
+                <p>Check In</p>
+                <a href="#" class="more-info" onclick="checkinScreen()">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card out">
+                <i class="fas fa-sign-out icon"></i>
+                <h2>53</h2>
+                <p>Check Out </p>
+                <a href="#" class="more-info" onclick="checkoutScreen()">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            <div class="card moving">
+                <i class="fas fa-refresh icon"></i>
+                <h2>17</h2>
+                <p>Frequently Moving Vehicle </p>
+                <a href="#" class="more-info" onclick="frequentlyMovingScree()">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            <div class="card users">
+                <i class="fas fa-users icon"></i>
+                <h2>7</h2>
+                <p>Create Users </p>
+                <a href="#" class="more-info">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+    
+   
+    <div class="footer">© 2025 Vehicle Registration. All Rights Reserved.</div>
+</body>
+
+</html>
