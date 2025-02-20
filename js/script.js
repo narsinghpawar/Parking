@@ -65,15 +65,15 @@ function searchVehicle() {
 }
 
 function registrationScreen() {
-  window.location.href = "/registration.html";
+  window.location.href = "registration.html";
 }
 
 function dataTableScreen() {
-  window.location.href = "/dataTable.html";
+  window.location.href = "dataTable.html";
 }
 
 function frequentlyMovingScree() {
-  window.location.href = "/moving.html";
+  window.location.href = "moving.html";
 }
 
 function checkinScreen() {
