@@ -561,7 +561,7 @@ tr:nth-child(even) {
 /* Hero section */
 .hero {
   height: 100vh;
-  background: url("/images/landingPage-3.png") no-repeat center center/cover;
+  background: url("./images/landingPage-3.png") no-repeat center center/cover;
   padding-top: 60px; /* Prevent content from being hidden behind the navbar */
   height: 100vh;
   padding: 20px;
