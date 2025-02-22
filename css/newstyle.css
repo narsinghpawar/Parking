@@ -273,7 +273,9 @@ button {
 
 /* Allow scrolling on small screens */
 @media (max-width: 768px) {
-  body {
+
+  body,
+  html {
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -285,6 +287,14 @@ button {
 
   .card {
     width: 90%;
+    margin-bottom: 20px;
+    /* Adds spacing between cards */
+  }
+
+  /* Ensures spacing between last card and footer */
+  .card-container.second-row {
+    margin-bottom: 40px;
+    /* Adjust spacing as needed */
   }
 
   .footer {
@@ -294,13 +304,6 @@ button {
 
 /* Media query for small screens */
 @media (max-width: 768px) {
-
-  html,
-  body {
-    overflow: hidden;
-    /* Prevent scrolling */
-  }
-
   .registration-container {
     flex-direction: column;
     justify-content: center;
