@@ -156,9 +156,13 @@ body {
 .registration-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  padding: 10px;
+  /* Centers the form horizontally */
+  align-items: flex-start;
+  /* Aligns it towards the top */
+  min-height: 80%;
+  /* Adjusts height for responsiveness */
+  margin-top: 15px;
+  /* Moves it closer to the breadcrumb */
 }
 
 /* Registration Form Box */
@@ -171,6 +175,9 @@ body {
   width: 30%;
   max-height: 100%;
   overflow: hidden;
+  position: relative;
+  top: -0px;
+  /* Pulls the box up */
 }
 
 /* Avatar Upload */
@@ -282,5 +289,34 @@ button {
 
   .footer {
     position: relative;
+  }
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+
+  html,
+  body {
+    overflow: hidden;
+    /* Prevent scrolling */
+  }
+
+  .registration-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 40px);
+    margin-top: 0;
+
+  }
+
+  .registration-box {
+    width: 80%;
+    overflow: hidden;
+  }
+
+  .footer {
+    position: fixed;
+    /* Ensures footer stays at the bottom */
   }
 }
