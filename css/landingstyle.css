@@ -79,23 +79,6 @@ body {
     margin-bottom: 20px;
 }
 
-.mdl-textfield__input {
-    border-bottom: 1px solid #4CAF50 !important;
-    /* Green bottom border */
-    box-shadow: 0 1px 0 0 #4CAF50 !important;
-    /* Green underline effect */
-}
-
-/* Change label color when input is focused */
-.mdl-textfield__input :focus+.mdl-textfield__label {
-    color: #4CAF50
-}
-
-/* Optional: Change the placeholder text color */
-.mdl-textfield__input::placeholder {
-    color: green !important;
-    opacity: 0.5;
-}
 
 /* Button Styles */
 button {
