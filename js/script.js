@@ -122,3 +122,14 @@ function registration() {
   } else {
   }
 }
+
+function previewAvatar(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      document.getElementById("avatarPreview").src = e.target.result; // Update the avatar
+    };
+    reader.readAsDataURL(file);
+  }
+}
