@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-    background: url('/images/landingPage-1.png') no-repeat center center fixed;
+    background: url('../images/landingPage-1.png') no-repeat center center fixed;
     background-size: cover;
     margin: 0;
     height: 100vh;
