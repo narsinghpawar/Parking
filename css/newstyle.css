@@ -263,3 +263,26 @@ button {
   width: 100%;
   font-weight: bold;
 }
+
+/* Allow scrolling on small screens */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+  }
+
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    /* Full width on small screens */
+  }
+
+  .footer {
+    position: relative;
+    /* Prevents it from blocking content */
+  }
+}
