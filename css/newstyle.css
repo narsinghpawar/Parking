@@ -313,8 +313,8 @@ button {
 /* Increase registration form size on larger screens */
 @media (min-width: 768px) {
   .registration-box {
-    width: 100%;
-    max-width: 50%;
+    width: 80%;
+    max-width: 500px;
     padding: 40px;
   }
 
@@ -330,8 +330,8 @@ button {
 
 @media (min-width: 1024px) {
   .registration-box {
-    width: 100%;
-    max-width: 50%;
+    width: 80%;
+    max-width: 600px;
     padding: 50px;
   }
 
