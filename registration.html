@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Cards</title>
+    <title>Register Vehicle</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="css/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="css/newstyle.css">
-    <!-- Scripts -->
+    <link rel="stylesheet" href="css/newstyle.css"> 
     <script defer src="js/material.min.js"></script>
     <script src="js/script.js"></script>
 </head>
@@ -16,44 +15,46 @@
 <body>
     <div class="header">Parking Management System</div>
     <div class="breadcrumb">
-        <a href="#" class="back-arrow">←</a>
-        <a href="dashboard.html"> Dashboard </a>
-        <span class="separator"> / </span>
-        <a href="#">Register Vehicle Details</a>
+    <a href="#" class="back-arrow">←</a>
+    <a href="dashboard.html">Dashboard</a>
+    <span class="separator">/</span>
+    <a href="#">Register Vehicle Details</a>
     </div>
-    <!-- Modal Box -->
-    <div class="modal" id="loginModal">
-        <p style="font-weight: bold;">Login</p>
+    <div class="registration-container">
+        <div class="registration-box">
+            <h5>Register Vehicle</h5>
 
-        <!-- Avatar with Camera Upload -->
-        <div class="avatar-container">
-            <img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview">
-            <label for="file-input" class="camera-icon">
-                <i class="fa fa-camera"></i>
-            </label>
-            <input type="file" id="file-input" accept="image/*" onchange="previewAvatar(event)">
+            <!-- Avatar Upload -->
+            <div class="avatar-container">
+                <img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview">
+                <label for="file-input" class="camera-icon">
+                    <i class="fa fa-camera" style="color: green;"></i>
+                </label>
+                <input type="file" id="file-input" accept="image/*" onchange="previewAvatar(event)">
+            </div>
+
+            <!-- Registration Form -->
+            <form action="#">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="mobile">
+                    <label class="mdl-textfield__label" for="mobile">Mobile Number <span class="asterisk"
+                            style="color: red;">*</span></label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="vehicle">
+                    <label class="mdl-textfield__label" for="vehicle">Vehicle Number <span class="asterisk"
+                            style="color: red;">*</span></label>
+                </div>
+
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                    style="background-color: green; color: white;" onclick="registerVehicle()">
+                    Register Vehicle
+                </button>
+            </form>
         </div>
-
-        <!-- Login Form -->
-        <form action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input input-focus" type="text" id="Mobile">
-                <label class="mdl-textfield__label" for="Username">Mobile number<span class="asterisk"
-                        style="color: red;">*</span></label>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input input-focus" type="text" id="vehicle">
-                <label class="mdl-textfield__label" for="vehicle">Vehicle number <span class="asterisk"
-                        style="color: red;">*</span></label>
-            </div>
-        </form>
-
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="registerVehicle()"
-            id="loginBtn">
-            Register Vehicle
-        </button>
     </div>
+
     <div class="footer">© 2025 Vehicle Registration. All Rights Reserved.</div>
 </body>
 

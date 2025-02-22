@@ -1,44 +1,36 @@
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: url('../images/landingPage-1.png') no-repeat center center fixed;
-  /* Replace with your image path */
+  font-family: Arial, sans-serif;
+  background: url('/images/landingPage-1.png') no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
-  /* Prevents horizontal scrollbar */
+  height: 100%;
+  overflow: hidden;
 }
 
-/* Header */
 .header {
-  background-color: #f2f2f2;
-  color: black;
-  padding: 15px;
-  font-size: 18px;
   width: 100%;
-  bottom: 0;
-  left: 0;
+  padding: 10px;
+  background: #f1f1f1;
+  position: relative;
   font-weight: bold;
-  color: #333;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Breadcrumb */
+/* Breadcrumb Navigation */
 .breadcrumb {
   display: flex;
-  font-size: 15px;
-  background: #fbf7f7;
-  padding: 10px;
-  margin: 10px;
-  font-weight: bold;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  line-height: 1.2;
+  height: 20px;
+  margin: 5px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
 }
 
 .breadcrumb a {
@@ -51,14 +43,6 @@ body {
   text-decoration: underline;
 }
 
-/* Dashboard Summary */
-p {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* Card Container */
 .card-container {
   display: flex;
   justify-content: center;
@@ -69,23 +53,17 @@ p {
 
 }
 
-/* Ensure first row cards are in one line */
-/* ✅ Make sure both rows have the same width */
 .first-row .card,
 .second-row .card {
   width: 100%;
   max-width: 250px;
 }
 
-/* Ensure equal width for 4 cards in the first row */
 .first-row .card {
   flex: 1;
-  /* Makes all cards take equal space */
   max-width: 250px;
-  /* Adjust to ensure all 4 fit in one line */
 }
 
-/* Adjust second row */
 .second-row {
   display: flex;
   justify-content: center;
@@ -100,9 +78,6 @@ p {
   width: 100%;
 }
 
-
-
-/* Card Styling */
 .card {
   display: flex;
   align-items: center;
@@ -123,44 +98,34 @@ p {
   text-align: left;
 }
 
-/* Specific Card Colors */
 .booking {
   background-color: #e67e22;
 }
 
-/* Orange */
 .parking {
   background-color: #27ae60;
 }
 
-/* Green */
 .owner {
   background-color: #27ae60;
 }
 
-/* Green */
 .out {
   background-color: #e74c3c;
 }
 
-/* Red */
 .moving {
   background-color: #e74c3c;
 }
 
-/* Red */
 .users {
   background-color: #3498db;
 }
 
-/* Blue */
-
-/* Card Hover Effect */
 .card:hover {
   transform: translateY(-5px);
 }
 
-/* Card Text */
 .card h2 {
   font-size: 28px;
   margin: 0;
@@ -171,7 +136,6 @@ p {
   margin: 5px 0;
 }
 
-/* More Info Link */
 .more-info {
   color: white;
   font-weight: bold;
@@ -180,7 +144,6 @@ p {
   display: inline-block;
 }
 
-/* Card Icons */
 .card i {
   font-size: 50px;
   position: absolute;
@@ -189,151 +152,107 @@ p {
   opacity: 0.2;
 }
 
-
-
-/* Footer */
-.footer {
-  background-color: #f8f8f8;
-  position: relative;
-  text-align: center;
-  padding: 15px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  font-weight: bold;
-  color: #333;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-
-/* Container */
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 400px;
-  background: white;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-}
-
-/* Title */
-.modal p {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* Avatar Container */
-.avatar-container {
-  position: relative;
-  display: inline-block;
-}
-
-/* Avatar Image */
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin: 10px auto;
-  display: block;
-  object-fit: cover;
-  border: 3px solid #ddd;
-  background-color: #4CAF50;
-}
-
-/* Camera Icon Positioned Correctly */
-.camera-icon {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background: #4CAF50;
-  color: white;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+/* Registration Form Container */
+.registration-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  font-size: 14px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  transition: 0.3s ease-in-out;
+  flex-grow: 1;
+  padding: 10px;
 }
 
-/* Adjust Camera Icon Size */
+/* Registration Form Box */
+.registration-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 30%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+/* Avatar Upload */
+.avatar-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Camera Icon Fix */
+.camera-icon {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  transform: translate(30%, -1%);
+  background: white;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 18px;
+  border: 2px solid #fff;
+}
+
 .camera-icon i {
   font-size: 16px;
+  color: green;
 }
 
-
-
-/* Hide default file input */
-#file-input {
+/* Hide File Input */
+input[type="file"] {
   display: none;
 }
-
-
-/* Hide default file input */
-#file-input {
-  display: none;
-}
-
-
 
 /* Form Fields */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .mdl-textfield {
   width: 100%;
-  margin-bottom: 20px;
 }
 
-/* Change border color and label color on focus */
-.mdl-textfield__input {
-  border-bottom: 1px solid #4CAF50 !important;
-  /* Green bottom border */
-  box-shadow: 0 1px 0 0 #4CAF50 !important;
-  /* Green underline effect */
-}
-
-/* Change label color when input is focused */
-.mdl-textfield__input .mdl-textfield__label {
-  color: #4CAF50 !important;
-}
-
-/* Optional: Change the placeholder text color */
-.mdl-textfield__input::placeholder {
-  color: green !important;
-  opacity: 0.5;
-}
-
-/* Button Styling */
+/* Register Button */
 button {
   width: 100%;
   padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-#loginBtn {
-  background-color: #4CAF50;
-  /* Green */
+  background-color: green;
   color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  text-transform: uppercase;
 }
 
-#loginBtn:hover {
-  background-color: #45a049;
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background: #f1f1f1;
+  position: relative;
+  bottom: 0;
+  font-weight: bold;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* ✅ For tablets (max-width: 1024px) */
 @media screen and (max-width: 1024px) {
   .card-container {
     justify-content: center;
@@ -342,13 +261,11 @@ button {
 
   .card {
     width: 45%;
-    /* Two cards per row */
     max-width: 300px;
     margin-bottom: 80px;
   }
 }
 
-/* ✅ For smaller tablets and large phones (max-width: 768px) */
 @media screen and (max-width: 768px) {
   .card-container {
     flex-direction: column;
@@ -359,11 +276,9 @@ button {
     width: 90%;
     max-width: 350px;
     margin-bottom: 80px;
-    /* Cards stack with same width */
   }
 }
 
-/* ✅ For mobile devices (max-width: 480px) */
 @media screen and (max-width: 480px) {
   .card-container {
     display: flex;
@@ -375,11 +290,9 @@ button {
     width: 95%;
     max-width: 320px;
     margin-bottom: 80px;
-    /* Maintain uniformity */
   }
 }
 
-/* ✅ For very small devices (max-width: 360px) */
 @media screen and (max-width: 360px) {
   .card {
     width: 100%;
@@ -388,64 +301,46 @@ button {
   }
 }
 
-/* ✅ Adjust footer for small devices */
 @media screen and (max-width: 768px) {
   .footer {
     position: relative;
-    /* Prevents footer from overlapping */
     bottom: 0;
     font-size: 12px;
+    bottom: -35px;
   }
 }
 
-/* ✅ For very small devices */
-@media screen and (max-width: 480px) {
-  .card-container:last-child {
-    margin-bottom: 100px;
-    font-size: 12px;
+/* Increase registration form size on larger screens */
+@media (min-width: 768px) {
+  .registration-box {
+    width: 100%;
+    max-width: 50%;
+    padding: 40px;
   }
 
-  .footer {
-    position: relative;
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .camera-icon {
+    padding: 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .registration-box {
+    width: 100%;
+    max-width: 50%;
+    padding: 50px;
+  }
+
+  .avatar {
+    width: 130px;
+    height: 130px;
+  }
+
+  .camera-icon {
     padding: 10px;
-    font-size: 12px;
-  }
-
-  /* Decrease Button Size */
-  /* ✅ For very small devices */
-  @media screen and (max-width: 480px) {
-    .card-container:last-child {
-      margin-bottom: 100px;
-      font-size: 12px;
-    }
-
-    .footer {
-      position: absolute;
-      padding: 10px;
-      font-size: 12px;
-    }
-
-    /* Decrease Button Size */
-    button,
-    .mdl-button {
-      font-size: 12px;
-      /* Reduce font size */
-      padding: 8px 12px;
-      /* Smaller padding */
-      min-width: 80px;
-      /* Reduce width */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* Ensures text is centered */
-      text-align: center;
-      /* Extra centering for safety */
-    }
-
-    /* Reduce the width of full-width buttons */
-    .mdl-button--raised {
-      width: 90%;
-      /* Reduce button width */
-    }
   }
 }
