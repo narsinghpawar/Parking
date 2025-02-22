@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: url('../images/landingPage-1.png') no-repeat center center fixed;
+  background: url('/images/landingPage-1.png') no-repeat center center fixed;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -306,41 +306,5 @@ button {
     position: relative;
     bottom: 0;
     font-size: 12px;
-    bottom: -35px;
-  }
-}
-
-/* Increase registration form size on larger screens */
-@media (min-width: 768px) {
-  .registration-box {
-    width: 80%;
-    max-width: 500px;
-    padding: 40px;
-  }
-
-  .avatar {
-    width: 120px;
-    height: 120px;
-  }
-
-  .camera-icon {
-    padding: 8px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .registration-box {
-    width: 80%;
-    max-width: 600px;
-    padding: 50px;
-  }
-
-  .avatar {
-    width: 130px;
-    height: 130px;
-  }
-
-  .camera-icon {
-    padding: 10px;
   }
 }
