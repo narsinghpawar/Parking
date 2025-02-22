@@ -4,33 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking Management System</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
+    <title>Login</title>
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="css/landingstyle.css">
+    <!-- Scripts -->
+    <script defer src="js/material.min.js"></script>
+    <script src="js/script.js"></script>
 </head>
 
 <body>
-    <header class="navbar">
-        <h4>Parking Management System</h4>
-    </header>
+    <button class="login-btn" onclick="openModal()">Login</button>
 
-    <div class="hero">
-        <div class="login-container">
-            <h2>Login</h2>
-       
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
-                </div>
-                <button onclick="logIn()">Login</button>
-           
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Modal Box -->
+    <div class="modal" id="loginModal">
+        <p style="font-weight: bold;">Login</p>
+
+        <!-- Avatar with Camera Upload -->
+        <div class="avatar-container">
+            <img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview">
         </div>
+
+        <!-- Login Form -->
+        <form action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input input-focus" type="text" id="Username">
+                <label class="mdl-textfield__label" for="Username">Username<span class="asterisk"
+                        style="color: red;">*</span></label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input input-focus" type="password" id="password">
+                <label class="mdl-textfield__label" for="password">Password <span class="asterisk"
+                        style="color: red;">*</span></label>
+            </div>
+        </form>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="login()" id="loginBtn">
+            Login
+        </button>
+        <button onclick="closeModal()">Close</button>
     </div>
+
+    <!-- JavaScript Functions -->
+    <script>
+        function openModal() {
+            document.getElementById('loginModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').classList.remove('show');
+        }
+
+        function showToast(message) {
+            let toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+
+            document.getElementById('toastContainer').appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        
+    </script>
 </body>
 
 </html>
