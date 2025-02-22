@@ -269,7 +269,6 @@ button {
   body {
     overflow-y: auto;
     overflow-x: hidden;
-    /* Allow vertical scrolling */
   }
 
   .card-container {
@@ -279,11 +278,9 @@ button {
 
   .card {
     width: 90%;
-    /* Full width on small screens */
   }
 
   .footer {
     position: relative;
-    /* Prevents it from blocking content */
   }
 }
