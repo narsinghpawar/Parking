@@ -11,14 +11,40 @@ body {
   overflow-x: hidden;
 }
 
-.header {
-  width: 100%;
-  padding: 10px;
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  /* Align header on left and logout on right */
+  align-items: center;
+  /* Center items vertically */
   background: #f1f1f1;
-  position: relative;
-  font-weight: bold;
+  padding: 10px 20px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.header {
+  font-size: 20px;
+  font-weight: bold;
+  flex-grow: 1;
+}
+
+.btn-logout {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+
+}
+
+.btn-logout:hover {
+  background-color: #4CAF50;
+}
+
+
 
 /* Breadcrumb Navigation */
 .breadcrumb {
@@ -130,7 +156,7 @@ body {
 }
 
 .Graph {
-  background: rgba(146, 179, 233, 0.8);
+  background: rgba(39, 174, 96, 0.8);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
