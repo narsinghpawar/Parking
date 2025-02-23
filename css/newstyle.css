@@ -316,18 +316,16 @@ button {
 
   .card {
     width: 90%;
-    margin-bottom: 20px;
-    /* Adds spacing between cards */
+    margin-bottom: 10px;
   }
 
-  /* Ensures spacing between last card and footer */
   .card-container.second-row {
     margin-bottom: 40px;
-    /* Adjust spacing as needed */
   }
 
   .footer {
     position: relative;
+    font-size: 12px;
   }
 }
 
@@ -543,12 +541,9 @@ tr {
 @media screen and (max-width: 600px) {
   .breadcrumb {
     flex-direction: column;
-    /* ✅ Stack items */
-    align-items: center;
     font-size: 12px;
-    /* ✅ Reduce font size */
     gap: 3px;
-    text-align: center;
+    height: 30px;
   }
 }
 
@@ -556,7 +551,6 @@ tr {
 @media screen and (min-width: 601px) {
   .breadcrumb {
     flex-direction: row;
-    /* ✅ Keep in one line */
     font-size: 14px;
   }
 }
