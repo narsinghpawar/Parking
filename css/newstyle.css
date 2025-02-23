@@ -554,3 +554,169 @@ tr {
     font-size: 14px;
   }
 }
+
+/* Toast Container */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Toast Notification */
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 380px;
+  /* Increased width */
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: relative;
+  white-space: normal;
+  /* Allows multi-line messages */
+  word-break: break-word;
+  /* Prevents text cutoff */
+}
+
+/* Toast Colors */
+.success-toast {
+  background-color: #4CAF50;
+  /* Green */
+}
+
+.error-toast {
+  background-color: #F44336;
+  /* Red */
+}
+
+/* Show Toast */
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Progress Bar */
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  animation: toastProgress 3s linear forwards;
+}
+
+/* Progress Animation */
+@keyframes toastProgress {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0%;
+  }
+}
+
+/* Close Button */
+.toast-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ensure text and close button are on the same line */
+.toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+/* Tablets & Small Laptops */
+@media (max-width: 1024px) {
+  .toast-container {
+    right: 10px;
+    top: 15px;
+  }
+
+  .toast {
+    max-width: 320px;
+    /* Adjusted for smaller screens */
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .toast-container {
+    right: 5px;
+    top: 10px;
+    width: 90%;
+    /* Toasts will be centered */
+    left: 5%;
+    display: flex;
+    align-items: center;
+  }
+
+  .toast {
+    max-width: 100%;
+    font-size: 12px;
+    padding: 8px 12px;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .toast-close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Very Small Screens (Extra Small Phones) */
+@media (max-width: 480px) {
+  .toast-container {
+    right: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .toast {
+    max-width: 90%;
+    margin: 0 auto;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}

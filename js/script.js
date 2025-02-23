@@ -1,33 +1,3 @@
-function showToast(type, message) {
-  var toastContainer = document.querySelector(".toast-container");
-  var toast = document.createElement("div");
-  toast.classList.add("toast", type, "show");
-
-  var text = document.createElement("span");
-  text.innerText = message;
-
-  var closeBtn = document.createElement("button");
-  closeBtn.innerHTML = "✖";
-  closeBtn.classList.add("close-btn");
-  closeBtn.onclick = function () {
-    toast.classList.remove("show");
-    setTimeout(() => toast.remove(), 300);
-  };
-
-  var progressBar = document.createElement("div");
-  progressBar.classList.add("progress-bar");
-
-  toast.appendChild(text);
-  toast.appendChild(closeBtn);
-  toast.appendChild(progressBar);
-  toastContainer.appendChild(toast);
-
-  setTimeout(function () {
-    toast.classList.remove("show");
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-
 function searchVehicle() {
   let input = document.getElementById("searchInput").value.trim().toLowerCase();
   let detailsSections = document.querySelectorAll("details");
@@ -193,4 +163,54 @@ function checkAccess() {
   } else {
     window.location.href = "dashboard.html";
   }
+}
+
+function showToast(message, type = "error") {
+  const toastContainer =
+    document.querySelector(".toast-container") || createToastContainer();
+  const toast = document.createElement("div");
+  toast.className = `toast ${
+    type === "success" ? "success-toast" : "error-toast"
+  } show`;
+  toast.innerHTML = `
+        <span class="toast-message">${message}</span>
+        <button class="toast-close">&times;</button>
+        <div class="toast-progress"></div>
+    `;
+
+  toastContainer.appendChild(toast);
+  toast.querySelector(".toast-close").addEventListener("click", () => {
+    toast.remove();
+  });
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
+}
+
+function createToastContainer() {
+  const container = document.createElement("div");
+  container.className = "toast-container";
+  document.body.appendChild(container);
+  return container;
+}
+
+function validateData(data) {
+  return !!data & (typeof data === "string") && data.trim().length > 0;
+}
+
+function registerVehicle() {
+  let mobile = document.getElementById("mobile").value.trim();
+  let vehicle = document.getElementById("vehicle").value.trim();
+
+  if (!validate(mobile)) {
+    showToast("⚠️ Invalid Mobile Number! Enter a valid 10-digit number.");
+    return;
+  }
+
+  if (!validate(vehicle)) {
+    showToast("⚠️ Invalid Vehicle Number! Enter a valid vehicle number.");
+    return;
+  }
+
+  showToast("✅ Vehicle Registered Successfully!", "success");
 }

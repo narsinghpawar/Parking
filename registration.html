@@ -13,6 +13,7 @@
 </head>
 
 <body>
+   
     <div class="header-container">
         <div class="header">Parking Management System</div>
         <div class="btn-logout">Logout</div>
@@ -26,6 +27,7 @@
     </div>
     <div id="session-name"></div>
     </div>
+   
     <div class="registration-container">
         <div class="registration-box">
             <h5>Register Vehicle</h5>
@@ -40,7 +42,7 @@
             </div>
 
             <!-- Registration Form -->
-            <form action="#">
+          
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="mobile">
                     <label class="mdl-textfield__label" for="mobile">Mobile Number <span class="asterisk"
@@ -57,9 +59,12 @@
                     style="background-color: green; color: white;" onclick="registerVehicle()">
                     Register Vehicle
                 </button>
-            </form>
+          
         </div>
     </div>
+
+    <!-- Toast Message -->
+<div class="toast-container"></div>
 
     <div class="footer">© 2025 Vehicle Registration. All Rights Reserved.</div>
 </body>
