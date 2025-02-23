@@ -101,12 +101,14 @@ function registration() {
   }
 }
 
+let profilePic;
 function previewAvatar(event) {
   const file = event.target.files[0];
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
-      document.getElementById("avatarPreview").src = e.target.result; // Update the avatar
+      profilePic = e.target.result;
+      document.getElementById("avatarPreview").src = profilePic;
     };
     reader.readAsDataURL(file);
   }
@@ -201,7 +203,12 @@ function validateData(data) {
 function registerVehicle() {
   let mobile = document.getElementById("mobile").value.trim();
   let vehicle = document.getElementById("vehicle").value.trim();
+  console.log(profilePic);
 
+  if (!validate(profilePic)) {
+    showToast("⚠️ Upload Profile Picture.");
+    return;
+  }
   if (!validate(mobile)) {
     showToast("⚠️ Invalid Mobile Number! Enter a valid 10-digit number.");
     return;
