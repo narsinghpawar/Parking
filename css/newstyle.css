@@ -45,8 +45,6 @@ body {
   background-color: #c0392b;
 }
 
-
-
 /* Breadcrumb Navigation */
 .breadcrumb {
   display: flex;
@@ -538,5 +536,27 @@ tr {
     width: max-content;
     background: rgba(76, 175, 80, 0.8);
     /* Allows horizontal scroll */
+  }
+}
+
+/* 📱 Small screens (mobile) */
+@media screen and (max-width: 600px) {
+  .breadcrumb {
+    flex-direction: column;
+    /* ✅ Stack items */
+    align-items: center;
+    font-size: 12px;
+    /* ✅ Reduce font size */
+    gap: 3px;
+    text-align: center;
+  }
+}
+
+/* 🖥️ Larger screens (tablets and above) */
+@media screen and (min-width: 601px) {
+  .breadcrumb {
+    flex-direction: row;
+    /* ✅ Keep in one line */
+    font-size: 14px;
   }
 }
