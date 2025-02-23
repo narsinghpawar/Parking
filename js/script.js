@@ -80,9 +80,10 @@ function checkoutScreen() {
 function login() {
   const username = document.getElementById("Username").value.trim();
   const password = document.getElementById("password").value.trim();
+  // let securePassword = protectPassword(password);
 
   fetch(
-    "https://script.google.com/macros/s/AKfycbwq6vMFOCgSS8cfs1-Jd_zR7vmx7ab-xwyfVhEmeQVuAelNpd94qpb8zAInNbj88jrQ/exec",
+    "https://script.google.com/macros/s/AKfycbw_hRF19adLanumubBdH4RUiQYwulbkozvxx22JjJJgt8rpXyN6tR7JtcmcLIZbXgm5/exec",
     {
       method: "POST",
       headers: {
@@ -132,4 +133,16 @@ function previewAvatar(event) {
     };
     reader.readAsDataURL(file);
   }
+}
+
+async function protectPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+  console.log("🔐 Hashed Password:", hashHex);
+  return hashHex;
 }
