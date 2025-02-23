@@ -18,12 +18,17 @@
         <div class="header">Parking Management System</div>
         <div class="btn-logout">Logout</div>
     </div>
+    
     <div class="breadcrumb">
-        <a href="#" class="back-arrow">←</a>
-        <a href="dashboard.html">Dashboard</a>
-        <span class="separator">/</span>
-        <a href="#">Offenly Moving Vehicle Details</a>
+        <div class="breadcrumb-details">
+            <a href="#" class="back-arrow">←</a>
+            <a href="#" onclick="checkAccess()">Dashboard</a>
+            <span class="separator">/</span>
+            <a href="#">Offenly Moving Vehicle Details</a>
+        </div>
+        <div id="session-name"></div>
     </div>
+   
     <div class="container">
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search vehicle..." onkeyup="searchVehicle()">

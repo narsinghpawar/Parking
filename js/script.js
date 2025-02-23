@@ -77,13 +77,13 @@ function checkoutScreen() {
   window.location.href = "checkout.html";
 }
 
-function login() {
+async function login() {
   const username = document.getElementById("Username").value.trim();
-  const password = document.getElementById("password").value.trim();
-  // let securePassword = protectPassword(password);
+  const securePassword = document.getElementById("password").value.trim();
+  let password = await protectPassword(securePassword);
 
   fetch(
-    "https://script.google.com/macros/s/AKfycbw_hRF19adLanumubBdH4RUiQYwulbkozvxx22JjJJgt8rpXyN6tR7JtcmcLIZbXgm5/exec",
+    "https://script.google.com/macros/s/AKfycbzbNZUo06FEi_wBb9D8vywVXblYBHEzzNrk_qw-KmoTBbkRc4B4q1qIJriNVPHJ_YRF/exec",
     {
       method: "POST",
       headers: {
@@ -101,7 +101,11 @@ function login() {
     .then((result) => {
       showToast(result.status, result.message || "Unknown error occurred!");
       if (result.status === "success") {
-        window.location.href = "dashboard.html";
+        sessionStorage.setItem("username", result.username);
+        sessionStorage.setItem("roleID", result.roleId);
+        let roleID = sessionStorage.getItem("roleID");
+        window.location.href =
+          roleID === "Admin" ? "dashboard.html" : "user.html";
       }
       console.log("Success:", result);
     })
@@ -110,7 +114,10 @@ function login() {
       showToast("error", error.message);
     });
 }
-
+function logout() {
+  sessionStorage.clear();
+  window.location.href = "index.html";
+}
 function validate(data) {
   return !!data && typeof data == "string" && data.trim().length > 0;
 }
@@ -143,6 +150,47 @@ async function protectPassword(password) {
   const hashHex = hashArray
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
+
   console.log("🔐 Hashed Password:", hashHex);
   return hashHex;
+}
+document.addEventListener("DOMContentLoaded", function () {
+  let username = sessionStorage.getItem("username");
+  let roleID = sessionStorage.getItem("roleID");
+  let currentPage = window.location.pathname.split("/").pop();
+  if (!username || !roleID) {
+    if (currentPage !== "index.html") {
+      window.location.href = "index.html";
+    }
+    return;
+  }
+  let sessionElement = document.getElementById("session-name");
+  if (sessionElement) {
+    let now = new Date();
+    let date = now.toLocaleDateString();
+    let time = now.toLocaleTimeString();
+    sessionElement.textContent = `${username} ${date} ${time}`;
+  }
+  const allowedPagesForUsers = [
+    "checkin.html",
+    "checkout.html",
+    "registration.html",
+    "user.html",
+    "index.html",
+    "dataTable.html",
+  ];
+  if (roleID !== "Admin" && !allowedPagesForUsers.includes(currentPage)) {
+    alert("🚫 Access Denied! You are not authorized to view this page.");
+    sessionStorage.clear();
+    window.location.href = "index.html";
+  }
+});
+
+function checkAccess() {
+  let roleIds = sessionStorage.getItem("roleID");
+  if (roleIds != "Admin") {
+    window.location.href = "user.html";
+  } else {
+    window.location.href = "dashboard.html";
+  }
 }

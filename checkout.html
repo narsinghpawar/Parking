@@ -19,11 +19,15 @@
     </div>
     
     <div class="breadcrumb">
-        <a href="#" class="back-arrow">←</a>
-        <a href="dashboard.html">Dashboard</a>
-        <span class="separator">/</span>
-        <a href="#">Checkout Vehicle Details</a>
+        <div class="breadcrumb-details">
+            <a href="#" class="back-arrow">←</a>
+            <a href="#" onclick="checkAccess()">Dashboard</a>
+            <span class="separator">/</span>
+            <a href="#">Checkout Vehicle Details</a>
+        </div>
+        <div id="session-name"></div>
     </div>
+   
     <div class="registration-container">
         <div class="registration-box">
             <h5>Checkout</h5>

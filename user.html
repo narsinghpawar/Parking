@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>Dashboard Cards</title>
-    <link rel="stylesheet" href="css/newstyle.css"> <!-- Use external CSS -->
+    <link rel="stylesheet" href="css/newstyle.css">
     <script src="js/script.js"></script>
+    <title>Dashboard Cards</title>
 </head>
 
 <body>
@@ -15,13 +15,11 @@
         <div class="header">Parking Management System</div>
         <div class="btn-logout" onclick="logout()">Logout</div>
     </div>
-    
 
-    <div class="breadcrumb" >
-        <a href="#">Dashboard Summary<span>/</span><span>Admin</span></a>
+    <div class="breadcrumb">
+        <a href="#">Dashboard Summary<span>/</span><span>User</span></a>
         <div id="session-name"></div>
     </div>
-    <!-- First row (4 cards) -->
     <div class="card-container first-row">
         <div class="card booking">
             <div>
@@ -30,6 +28,22 @@
                 <a href="#" class="more-info" onclick="registrationScreen()">More information</a>
             </div>
             <i class="fas fa-book icon"></i>
+        </div>
+        <div class="card owner">
+            <i class="fas fa-sign-in icon"></i>
+            <div>
+                <h2>53</h2>
+                <p>Check In Vehicle</p>
+                <a href="#" class="more-info" onclick="checkinScreen()">More information</a>
+            </div>
+        </div>
+        <div class="card out">
+            <div>
+                <h2>53</h2>
+                <p>Check Out Vehicle</p>
+                <a href="#" class="more-info" onclick="checkoutScreen()">More information</a>
+            </div>
+            <i class="fas fa-sign-out icon"></i>
         </div>
 
         <div class="card parking">
@@ -40,57 +54,27 @@
             </div>
             <i class="fas fa-parking icon"></i>
         </div>
-
-        <div class="card owner">
-            <i class="fas fa-sign-in icon"></i>
-            <div>
-                <h2>53</h2>
-                <p>Check In Vehicle</p>
-            <a href="#" class="more-info" onclick="checkinScreen()">More information</a>
-            </div>
-           
-        </div>
-
-        <div class="card out">
-            <div>
-                <h2>53</h2>
-                <p>Check Out Vehicle</p>
-                <a href="#" class="more-info" onclick="checkoutScreen()">More information</a>
-            </div>
-            <i class="fas fa-sign-out icon"></i>
-        </div>
     </div>
-
-    <!-- Second row (2 cards) -->
-    <div class="card-container second-row">
-        <div class="card moving">
-            <div>
-                <h2>17</h2>
-                <p>Offenly Moving Vehicles Details</p>
-                <a href="#" class="more-info" onclick="frequentlyMovingScree()">More information</a>
-            </div>
-            <i class="fas fa-refresh icon"></i>
-        </div>
-
-        <div class="card users">
-            <div>
-                <h2>7</h2>
-                <p>Create Users</p>
-                <a href="#" class="more-info">More info</a>
-            </div>
-            <i class="fas fa-users icon"></i>
-        </div>
-        <div class="card Graph">
-            <div>
-                <h2>53</h2>
-                <p>Graph Details</p>
-                <a href="#" class="more-info">More info</a>
-            </div>
-            <i class="fas fa-chart-pie"></i>
-        </div>
-    </div>
-
     <div class="footer">© 2025 Vehicle Registration. All Rights Reserved.</div>
+    <script>
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+            console.log("🔐 Hashed Password:", hashHex);
+            return hashHex;
+        }
+
+        async function testHashing() {
+            const uiPassword = "Sainath@123";
+            const storedHash = await hashPassword(uiPassword);
+            console.log("Stored Hash:", storedHash);
+        }
+
+        testHashing();
+    </script>
 </body>
 
 </html>
