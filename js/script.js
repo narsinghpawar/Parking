@@ -47,21 +47,21 @@ function checkoutScreen() {
   window.location.href = "checkout.html";
 }
 
+const apiUrl =
+  "https://script.google.com/macros/s/AKfycbyOlQLlm6l15KNnLhgcH6jhJTgS3n3QNrFgypWtu4tphSgHmmU-_uBaYqz2YykfclXy/exec";
 async function login() {
   const username = document.getElementById("Username").value.trim();
   const securePassword = document.getElementById("password").value.trim();
+  const type = 1;
   let password = await protectPassword(securePassword);
 
-  fetch(
-    "https://script.google.com/macros/s/AKfycbzbNZUo06FEi_wBb9D8vywVXblYBHEzzNrk_qw-KmoTBbkRc4B4q1qIJriNVPHJ_YRF/exec",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify({ username, password }),
-    }
-  )
+  fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    body: JSON.stringify({ username, password, type }),
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -70,8 +70,8 @@ async function login() {
     })
     .then((result) => {
       showToast(result.status, result.message || "Unknown error occurred!");
-      if (result.status === "success") {
-        sessionStorage.setItem("username", result.username);
+      if (result.statusCode === 200) {
+        sessionStorage.setItem("username", result.message);
         sessionStorage.setItem("roleID", result.roleId);
         let roleID = sessionStorage.getItem("roleID");
         window.location.href =
@@ -203,7 +203,6 @@ function validateData(data) {
 function registerVehicle() {
   let mobile = document.getElementById("mobile").value.trim();
   let vehicle = document.getElementById("vehicle").value.trim();
-  console.log(profilePic);
 
   if (!validate(profilePic)) {
     showToast("⚠️ Upload Profile Picture.");
@@ -219,5 +218,34 @@ function registerVehicle() {
     return;
   }
 
-  showToast("✅ Vehicle Registered Successfully!", "success");
+  let = requestData = {
+    mobile: mobile,
+    vehicle: vehicle,
+    profilePic: profilePic,
+    type: 2,
+  };
+
+  fetch(apiUrl, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify(requestData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data?.status === "success") {
+        showToast("✅ Vehicle registered successfully!", "success");
+        document.getElementById("mobile").value = "";
+        document.getElementById("vehicle").value = "";
+        document.getElementById("avatarPreview").src = "images/male.png";
+      } else {
+        showToast("❌" + data.message + "error");
+        document.getElementById("mobile").value = "";
+        document.getElementById("vehicle").value = "";
+        document.getElementById("avatarPreview").src = "images/male.png";
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      showToast("❌ Server error! Please try again later.", "error");
+    });
 }
