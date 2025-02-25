@@ -407,5 +407,6 @@ function searchVehicleTable() {
   }
 }
 
+//Testing Data
 // Call the function on page load
 //window.onload = getVehicleDetails;
