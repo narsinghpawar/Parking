@@ -14,7 +14,7 @@
 <body>
     <div class="header-container">
         <div class="header">Parking Management System</div>
-        <div class="btn-logout">Logout</div>
+        <div class="btn-logout" onclick="logout()">Logout</div>
     </div>
 
     <div class="breadcrumb">
@@ -29,104 +29,9 @@
     
     <div class="container"> 
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search vehicle..." onkeyup="searchVehicle()">
+            <input type="text" id="searchInput" placeholder="Search vehicle..." onkeyup="searchVehicleTable()">
         </div>
-        <details>
-            <summary>MH12AB1234</summary>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>Photo</th>
-                        <th>Mobile Number</th>
-                        <th>Vehicle Number</th>
-                        <th>Check in</th>
-                        <th>Check out</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td><img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview"></td>
-                        <td>9876543210</td>
-                        <td>MH12AB1234</td>
-                        <td>17-02-2025:12:00:12</td>
-                        <td>18-02-2025:12:00:12</td>
-                        <td class="status"><i class="fas fa-motorcycle fa-lg parked"></i> Parked</td>
-                    </tr>
-                    <tr>
-                        <td><img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview"></td>
-                        <td>8765432109</td>
-                        <td>MH12AB1234</td>
-                        <td>17-02-2025:12:00:12</td>
-                        <td>18-02-2025:12:00:12</td>
-                        <td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>
-                    </tr>
-                </table>
-            </div>
-        </details>
-    
-        <details>
-            <summary>TN09PQ5678</summary>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>Photo</th>
-                        <th>Mobile Number</th>
-                        <th>Vehicle Number</th>
-                        <th>Check in</th>
-                        <th>Check out</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td><img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview"></td>
-                        <td>9988776655</td>
-                        <td>TN09PQ5678</td>
-                        <td>17-02-2025:12:00:12</td>
-                        <td>18-02-2025:12:00:12</td>
-                        <td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>
-                    </tr>
-                    <tr>
-                        <td><img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview"></td>
-                        <td>8877665544</td>
-                        <td>TN09PQ5678</td>
-                        <td>17-02-2025:12:00:12</td>
-                        <td>18-02-2025:12:00:12</td>
-                        <td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>
-                    </tr>
-                </table>
-            </div>
-        </details>
-    
-        <details>
-            <summary>UP32MN1122</summary>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>Photo</th>
-                        <th>Mobile Number</th>
-                        <th>Vehicle Number</th>
-                        <th>Check in</th>
-                        <th>Check out</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td><img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview"></td>
-                        <td>7766554433</td>
-                        <td>UP32MN1122</td>
-                        <td>17-02-2025:12:00:12</td>
-                        <td>18-02-2025:12:00:12</td>
-                        <td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>
-                    </tr>
-                    <tr>
-                        <td><img src="images/male.png" alt="User Avatar" class="avatar" id="avatarPreview"></td>
-                        <td>6655443322</td>
-                        <td>UP32MN1122</td>
-                        <td>17-02-2025:12:00:12</td>
-                        <td>18-02-2025:12:00:12</td>
-                        <td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>
-                    </tr>
-                </table>
-            </div>
-        </details>
-        
+    <div id="vehicle-list"></div>
     </div> 
     <div class="footer">© 2025 Vehicle Registration. All Rights Reserved.</div>
 </body>

@@ -7,88 +7,90 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Dashboard Cards</title>
     <link rel="stylesheet" href="css/newstyle.css"> <!-- Use external CSS -->
-    <script src="js/script.js"></script>
+    <script defer src="js/script.js"></script>
 </head>
 
 <body>
-    <div class="header-container">
+    <div class="header-container" >
         <div class="header">Parking Management System</div>
         <div class="btn-logout" onclick="logout()">Logout</div>
     </div>
     
-
-    <div class="breadcrumb" >
+    <div class="breadcrumb" id="breadcrumb" >
         <a href="#">Dashboard Summary<span>/</span><span>Admin</span></a>
         <div id="session-name"></div>
     </div>
     <!-- First row (4 cards) -->
-    <div class="card-container first-row">
-        <div class="card booking">
-            <div>
-                <h2>150</h2>
-                <p>Register Vehicles</p>
-                <a href="#" class="more-info" onclick="registrationScreen()">More information</a>
+     <div id="Dashboard-div">
+        <div class="card-container first-row">
+            <div class="card booking">
+                <div>
+                    <h2>150</h2>
+                    <p>Register Vehicles</p>
+                    <a href="#" class="more-info" onclick="registrationScreen()">More information</a>
+                </div>
+                <i class="fas fa-book icon"></i>
             </div>
-            <i class="fas fa-book icon"></i>
-        </div>
-
-        <div class="card parking">
-            <div>
-                <h2>53</h2>
-                <p>Parked Vehicles Details</p>
-                <a href="#" class="more-info" onclick="dataTableScreen()">More information</a>
+        
+            <div class="card parking">
+                <div>
+                    <h2>53</h2>
+                    <p>Parked Vehicles Details</p>
+                    <a href="#" class="more-info" onclick="dataTableScreen()">More information</a>
+                </div>
+                <i class="fas fa-parking icon"></i>
             </div>
-            <i class="fas fa-parking icon"></i>
-        </div>
-
-        <div class="card owner">
-            <i class="fas fa-sign-in icon"></i>
-            <div>
-                <h2>53</h2>
-                <p>Check In Vehicle</p>
-            <a href="#" class="more-info" onclick="checkinScreen()">More information</a>
+        
+            <div class="card owner">
+                <i class="fas fa-sign-in icon"></i>
+                <div>
+                    <h2>53</h2>
+                    <p>Check In Vehicle</p>
+                    <a href="#" class="more-info" onclick="checkinScreen()">More information</a>
+                </div>
+        
             </div>
-           
-        </div>
-
-        <div class="card out">
-            <div>
-                <h2>53</h2>
-                <p>Check Out Vehicle</p>
-                <a href="#" class="more-info" onclick="checkoutScreen()">More information</a>
+        
+            <div class="card out">
+                <div>
+                    <h2>53</h2>
+                    <p>Check Out Vehicle</p>
+                    <a href="#" class="more-info" onclick="checkoutScreen()">More information</a>
+                </div>
+                <i class="fas fa-sign-out icon"></i>
             </div>
-            <i class="fas fa-sign-out icon"></i>
         </div>
-    </div>
-
-    <!-- Second row (2 cards) -->
-    <div class="card-container second-row">
-        <div class="card moving">
-            <div>
-                <h2>17</h2>
-                <p>Offenly Moving Vehicles Details</p>
-                <a href="#" class="more-info" onclick="frequentlyMovingScree()">More information</a>
+        
+        <!-- Second row (2 cards) -->
+        <div class="card-container second-row">
+            <div class="card moving">
+                <div>
+                    <h2>17</h2>
+                    <p>Offenly Moving Vehicles Details</p>
+                    <a href="#" class="more-info" onclick="frequentlyMovingScree()">More information</a>
+                </div>
+                <i class="fas fa-refresh icon"></i>
             </div>
-            <i class="fas fa-refresh icon"></i>
-        </div>
-
-        <div class="card users">
-            <div>
-                <h2>7</h2>
-                <p>Create Users</p>
-                <a href="#" class="more-info">More info</a>
+        
+            <div class="card users">
+                <div>
+                    <h2>7</h2>
+                    <p>Create Users</p>
+                    <a href="#" class="more-info">More info</a>
+                </div>
+                <i class="fas fa-users icon"></i>
             </div>
-            <i class="fas fa-users icon"></i>
-        </div>
-        <div class="card Graph">
-            <div>
-                <h2>53</h2>
-                <p>Graph Details</p>
-                <a href="#" class="more-info">More info</a>
+            <div class="card Graph">
+                <div>
+                    <h2>53</h2>
+                    <p>Graph Details</p>
+                    <a href="#" class="more-info">More info</a>
+                </div>
+                <i class="fas fa-chart-pie"></i>
             </div>
-            <i class="fas fa-chart-pie"></i>
         </div>
-    </div>
+     </div>
+  
 
     <div class="footer">© 2025 Vehicle Registration. All Rights Reserved.</div>
 </body>

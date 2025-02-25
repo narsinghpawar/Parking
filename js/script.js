@@ -1,31 +1,5 @@
-function searchVehicle() {
-  let input = document.getElementById("searchInput").value.trim().toLowerCase();
-  let detailsSections = document.querySelectorAll("details");
-
-  detailsSections.forEach((details) => {
-    let table = details.querySelector("table");
-    if (!table) return;
-
-    let rows = table.querySelectorAll("tbody tr");
-    let found = false;
-
-    rows.forEach((row) => {
-      let text = row.textContent.trim().toLowerCase();
-      if (text.includes(input)) {
-        row.style.display = "";
-        found = true;
-      } else {
-        row.style.display = "none";
-      }
-    });
-
-    if (found) {
-      details.setAttribute("open", true);
-    } else {
-      details.removeAttribute("open");
-    }
-  });
-}
+const apiUrl =
+  "https://script.google.com/macros/s/AKfycbw9XtUuGTiHcRZUrOtKgGTWMkDdorychyTuyfPIu0rIsHgJULbcNM3MVdzT_joNs_Hm/exec";
 
 function registrationScreen() {
   window.location.href = "registration.html";
@@ -47,8 +21,6 @@ function checkoutScreen() {
   window.location.href = "checkout.html";
 }
 
-const apiUrl =
-  "https://script.google.com/macros/s/AKfycbyOlQLlm6l15KNnLhgcH6jhJTgS3n3QNrFgypWtu4tphSgHmmU-_uBaYqz2YykfclXy/exec";
 async function login() {
   const username = document.getElementById("Username").value.trim();
   const securePassword = document.getElementById("password").value.trim();
@@ -130,19 +102,31 @@ document.addEventListener("DOMContentLoaded", function () {
   let username = sessionStorage.getItem("username");
   let roleID = sessionStorage.getItem("roleID");
   let currentPage = window.location.pathname.split("/").pop();
+
   if (!username || !roleID) {
     if (currentPage !== "index.html") {
       window.location.href = "index.html";
     }
     return;
   }
+
   let sessionElement = document.getElementById("session-name");
-  if (sessionElement) {
-    let now = new Date();
-    let date = now.toLocaleDateString();
-    let time = now.toLocaleTimeString();
-    sessionElement.textContent = `${username} ${date} ${time}`;
+
+  function updateSessionTime() {
+    if (sessionElement) {
+      let now = new Date();
+      let date = now.toLocaleDateString();
+      let time = now.toLocaleTimeString();
+      sessionElement.textContent = `${username} ${date} ${time}`;
+    }
   }
+
+  // Initial time update
+  updateSessionTime();
+
+  // Update time every second
+  setInterval(updateSessionTime, 1000);
+
   const allowedPagesForUsers = [
     "checkin.html",
     "checkout.html",
@@ -151,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "index.html",
     "dataTable.html",
   ];
+
   if (roleID !== "Admin" && !allowedPagesForUsers.includes(currentPage)) {
     alert("🚫 Access Denied! You are not authorized to view this page.");
     sessionStorage.clear();
@@ -249,3 +234,140 @@ function registerVehicle() {
       showToast("❌ Server error! Please try again later.", "error");
     });
 }
+
+function generateVehicleTable(data) {
+  let container = document.getElementById("vehicle-list");
+
+  if (!data || !Array.isArray(data)) {
+    console.error("Error: Data is not an array or is undefined", data);
+    return;
+  }
+
+  // Group records by vehicle number
+  let vehicleMap = {};
+
+  data.forEach((record) => {
+    if (!record.vehicle) {
+      console.error("Error: Missing vehicle in", record);
+      return;
+    }
+
+    // If the vehicle is not yet added, create an entry
+    if (!vehicleMap[record.vehicle]) {
+      vehicleMap[record.vehicle] = [];
+    }
+
+    // Add the record to the corresponding vehicle
+    vehicleMap[record.vehicle].push(record);
+  });
+
+  // Loop through grouped vehicles
+  Object.keys(vehicleMap).forEach((vehicle) => {
+    let records = vehicleMap[vehicle];
+
+    // Create <details> element
+    let details = document.createElement("details");
+
+    // Create <summary> element
+    let summary = document.createElement("summary");
+    summary.textContent = vehicle;
+    details.appendChild(summary);
+
+    // Create table container
+    let tableContainer = document.createElement("div");
+    tableContainer.classList.add("table-container");
+
+    // Create table element
+    let table = document.createElement("table");
+
+    // Table Header
+    table.innerHTML = `
+            <tr>
+                <th>Photo</th>
+                <th>Mobile Number</th>
+                <th>Vehicle</th>
+                <th>Check in</th>
+                <th>Check out</th>
+                <th>Status</th>
+            </tr>
+        `;
+
+    // Loop through each record
+    records.forEach((record) => {
+      let row = document.createElement("tr");
+
+      // Determine status based on check-in/check-out data
+      let statusHTML = "";
+      if (record.checkout && record.checkout.trim() !== "") {
+        statusHTML = `<td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>`;
+      } else {
+        statusHTML = `<td class="status"><i class="fas fa-motorcycle fa-lg parked"></i> Parked</td>`;
+      }
+
+      row.innerHTML = `
+                <td><img src="${
+                  record.profilePic || "images/male.png"
+                }" alt="User Avatar" class="avatar"></td>
+                <td>${record.mobile || "N/A"}</td>
+                <td>${record.vehicle}</td>
+                <td>${record.checkin || "N/A"}</td>
+                <td>${record.checkout || "N/A"}</td>
+                ${statusHTML}
+            `;
+
+      table.appendChild(row);
+    });
+
+    tableContainer.appendChild(table);
+    details.appendChild(tableContainer);
+    container.appendChild(details);
+  });
+}
+
+// Fetch Data and Generate Table
+function getVehicleDetails() {
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Data received:", data);
+      generateVehicleTable(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+}
+
+function searchVehicleTable() {
+  let searchInput = document.getElementById("searchInput").value.toLowerCase();
+  let detailsElements = document
+    .getElementById("vehicle-list")
+    .getElementsByTagName("details");
+
+  for (let i = 0; i < detailsElements.length; i++) {
+    let details = detailsElements[i];
+    let summaryText = details
+      .getElementsByTagName("summary")[0]
+      .textContent.toLowerCase();
+    let rows = details.getElementsByTagName("tr");
+    console.log(rows);
+    let rowMatch = false;
+
+    for (let j = 1; j < rows.length; j++) {
+      let cells = rows[j].getElementsByTagName("td");
+      for (let k = 0; k < cells.length; k++) {
+        let cellText = cells[k].textContent || cells[k].innerText;
+        if (cellText.toLowerCase().includes(searchInput)) {
+          rowMatch = true;
+          break;
+        }
+      }
+      rows[j].style.display = rowMatch ? "" : "none";
+    }
+
+    details.style.display =
+      rowMatch || summaryText.includes(searchInput) ? "" : "none";
+  }
+}
+
+// Call the function on page load
+window.onload = getVehicleDetails;
