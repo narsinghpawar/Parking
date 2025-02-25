@@ -759,3 +759,35 @@ tr {
   background-color: red;
   color: white;
 }
+
+/* Responsive adjustments for tablets */
+@media (max-width: 1024px) {
+  .actions-container {
+    margin-left: 400px;
+    /* Adjust for medium screens */
+  }
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .actions-container {
+    margin-left: 200px;
+    /* Adjust for smaller screens */
+  }
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 480px) {
+  .actions-container {
+    margin-left: 50px;
+    /* Adjust for mobile devices */
+    flex-direction: column;
+    /* Stack buttons vertically */
+  }
+
+  .check-in-btn,
+  .check-out-btn {
+    width: 100%;
+    /* Make buttons full width */
+  }
+}
