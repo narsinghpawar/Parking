@@ -237,31 +237,15 @@ function registerVehicle() {
 
 function generateVehicleTable(data) {
   let container = document.getElementById("vehicle-list");
+  container.innerHTML = ""; // Clear previous content
 
   if (!data || !Array.isArray(data)) {
     console.error("Error: Data is not an array or is undefined", data);
     return;
   }
 
-  // Group records by vehicle number
-  let vehicleMap = {};
+  let vehicleMap = groupRecordsByVehicle(data);
 
-  data.forEach((record) => {
-    if (!record.vehicle) {
-      console.error("Error: Missing vehicle in", record);
-      return;
-    }
-
-    // If the vehicle is not yet added, create an entry
-    if (!vehicleMap[record.vehicle]) {
-      vehicleMap[record.vehicle] = [];
-    }
-
-    // Add the record to the corresponding vehicle
-    vehicleMap[record.vehicle].push(record);
-  });
-
-  // Loop through grouped vehicles
   Object.keys(vehicleMap).forEach((vehicle) => {
     let records = vehicleMap[vehicle];
 
@@ -270,58 +254,112 @@ function generateVehicleTable(data) {
 
     // Create <summary> element
     let summary = document.createElement("summary");
-    summary.textContent = vehicle;
+    summary.classList.add("vehicle-summary");
+
+    // Vehicle title
+    let vehicleTitle = document.createElement("span");
+    vehicleTitle.textContent = vehicle;
+
+    // Create action buttons and add to summary
+    let actionsContainer = createActionButtons(vehicle);
+
+    summary.appendChild(vehicleTitle);
+    summary.appendChild(actionsContainer);
     details.appendChild(summary);
 
-    // Create table container
+    // Create and populate the table
     let tableContainer = document.createElement("div");
     tableContainer.classList.add("table-container");
-
-    // Create table element
-    let table = document.createElement("table");
-
-    // Table Header
-    table.innerHTML = `
-            <tr>
-                <th>Photo</th>
-                <th>Mobile Number</th>
-                <th>Vehicle</th>
-                <th>Check in</th>
-                <th>Check out</th>
-                <th>Status</th>
-            </tr>
-        `;
-
-    // Loop through each record
-    records.forEach((record) => {
-      let row = document.createElement("tr");
-
-      // Determine status based on check-in/check-out data
-      let statusHTML = "";
-      if (record.checkout && record.checkout.trim() !== "") {
-        statusHTML = `<td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>`;
-      } else {
-        statusHTML = `<td class="status"><i class="fas fa-motorcycle fa-lg parked"></i> Parked</td>`;
-      }
-
-      row.innerHTML = `
-                <td><img src="${
-                  record.profilePic || "images/male.png"
-                }" alt="User Avatar" class="avatar"></td>
-                <td>${record.mobile || "N/A"}</td>
-                <td>${record.vehicle}</td>
-                <td>${record.checkin || "N/A"}</td>
-                <td>${record.checkout || "N/A"}</td>
-                ${statusHTML}
-            `;
-
-      table.appendChild(row);
-    });
+    let table = createVehicleTable(records);
 
     tableContainer.appendChild(table);
     details.appendChild(tableContainer);
     container.appendChild(details);
   });
+}
+
+// Function to group records by vehicle
+function groupRecordsByVehicle(data) {
+  let vehicleMap = {};
+  data.forEach((record) => {
+    if (!record.vehicle) {
+      console.error("Error: Missing vehicle in", record);
+      return;
+    }
+    if (!vehicleMap[record.vehicle]) {
+      vehicleMap[record.vehicle] = [];
+    }
+    vehicleMap[record.vehicle].push(record);
+  });
+  return vehicleMap;
+}
+
+// Function to create Check-in and Check-out buttons
+function createActionButtons(vehicle) {
+  let actionsContainer = document.createElement("span");
+  actionsContainer.classList.add("actions-container");
+
+  let checkInButton = document.createElement("button");
+  checkInButton.textContent = "Check In";
+  checkInButton.classList.add("check-in-btn");
+  checkInButton.onclick = () => handleCheckIn(vehicle);
+
+  let checkOutButton = document.createElement("button");
+  checkOutButton.textContent = "Check Out";
+  checkOutButton.classList.add("check-out-btn");
+  checkOutButton.onclick = () => handleCheckOut(vehicle);
+
+  actionsContainer.appendChild(checkInButton);
+  actionsContainer.appendChild(checkOutButton);
+  return actionsContainer;
+}
+
+// Function to create the vehicle data table
+function createVehicleTable(records) {
+  let table = document.createElement("table");
+  table.innerHTML = `
+    <tr>
+      <th>Photo</th>
+      <th>Mobile Number</th>
+      <th>Vehicle</th>
+      <th>Check in</th>
+      <th>Check out</th>
+      <th>Status</th>
+    </tr>
+  `;
+
+  records.forEach((record) => {
+    let row = document.createElement("tr");
+
+    let statusHTML =
+      record.checkout && record.checkout.trim() !== ""
+        ? `<td class="status"><i class="fas fa-sign-out-alt moved-out"></i> Moved Out</td>`
+        : `<td class="status"><i class="fas fa-motorcycle fa-lg parked"></i> Parked</td>`;
+
+    row.innerHTML = `
+      <td><img src="${
+        record.profilePic || "images/male.png"
+      }" alt="User Avatar" class="avatar"></td>
+      <td>${record.mobile || "N/A"}</td>
+      <td>${record.vehicle}</td>
+      <td>${record.checkin || "N/A"}</td>
+      <td>${record.checkout || "N/A"}</td>
+      ${statusHTML}
+    `;
+
+    table.appendChild(row);
+  });
+
+  return table;
+}
+
+// Dummy functions for Check-in and Check-out
+function handleCheckIn(vehicle) {
+  console.log(`Checked in: ${vehicle}`);
+}
+
+function handleCheckOut(vehicle) {
+  console.log(`Checked out: ${vehicle}`);
 }
 
 // Fetch Data and Generate Table
@@ -370,4 +408,4 @@ function searchVehicleTable() {
 }
 
 // Call the function on page load
-window.onload = getVehicleDetails;
+//window.onload = getVehicleDetails;
