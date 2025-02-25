@@ -736,7 +736,7 @@ tr {
 .actions-container {
   display: flex;
   gap: 8px;
-  margin-left: 650px;
+  margin-left: 680px;
   /* Push buttons to the right */
 }
 
