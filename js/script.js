@@ -1,6 +1,5 @@
 const apiUrl =
-  "https://script.google.com/macros/s/AKfycbw9XtUuGTiHcRZUrOtKgGTWMkDdorychyTuyfPIu0rIsHgJULbcNM3MVdzT_joNs_Hm/exec";
-
+  "https://script.google.com/macros/s/AKfycbxIELBAA9gDQw_vgwhXJExriP23WeQ0S_DG0T2rOKvX1ernv4_Tz0gZCl-RWL5K3tjY/exec";
 function registrationScreen() {
   window.location.href = "registration.html";
 }
@@ -299,6 +298,10 @@ function createActionButtons(vehicle) {
   let actionsContainer = document.createElement("span");
   actionsContainer.classList.add("actions-container");
 
+  let reloadButton = document.createElement("button");
+  reloadButton.textContent = "Reload";
+  reloadButton.classList.add("reload-btn");
+
   let checkInButton = document.createElement("button");
   checkInButton.textContent = "Check In";
   checkInButton.classList.add("check-in-btn");
@@ -309,8 +312,10 @@ function createActionButtons(vehicle) {
   checkOutButton.classList.add("check-out-btn");
   checkOutButton.onclick = () => handleCheckOut(vehicle);
 
+  actionsContainer.appendChild(reloadButton);
   actionsContainer.appendChild(checkInButton);
   actionsContainer.appendChild(checkOutButton);
+
   return actionsContainer;
 }
 
@@ -354,11 +359,28 @@ function createVehicleTable(records) {
 }
 
 // Dummy functions for Check-in and Check-out
-function handleCheckIn(vehicle) {
-  console.log(`Checked in: ${vehicle}`);
-}
+async function handleCheckIn(vehicle) {}
 
-function handleCheckOut(vehicle) {
+async function handleCheckOut(vehicle) {
+  try {
+    const type = 3;
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ vehicle, type }),
+    });
+    const result = await response.json();
+    console.log(result);
+    if (result.status == "success") {
+      showToast("✅".concat(result.message), "success");
+    } else {
+      showToast("❌".concat(result.message), "error");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
   console.log(`Checked out: ${vehicle}`);
 }
 
@@ -406,7 +428,3 @@ function searchVehicleTable() {
       rowMatch || summaryText.includes(searchInput) ? "" : "none";
   }
 }
-
-//Testing Data
-// Call the function on page load
-//window.onload = getVehicleDetails;

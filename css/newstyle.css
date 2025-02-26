@@ -372,20 +372,7 @@ details {
   margin-bottom: 15px;
 }
 
-details summary {
-  background: rgba(76, 175, 80, 0.8);
-  color: white;
-  font-weight: bold;
-  padding: 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  list-style: none;
-  transition: background 0.3s ease-in-out;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 
 details summary::after {
   content: "▼";
@@ -721,27 +708,42 @@ tr {
   }
 }
 
+
+
 .vehicle-summary {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  font-weight: bold;
-  background-color: #4caf50;
+  justify-content: space-between;
+  /* Ensures left and right alignment */
+  padding: 15px;
+  background: rgba(76, 175, 80, 0.8);
   color: white;
-  cursor: pointer;
+  font-weight: bold;
   border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  /* Ensure full-width usage */
 }
 
 .actions-container {
   display: flex;
-  gap: 8px;
-  margin-left: 680px;
-  /* Push buttons to the right */
+  gap: 10px;
+  /* Keeps space between buttons */
+  margin-left: auto;
+  /* Pushes buttons to the right */
+  justify-content: flex-end;
+  /* Ensures alignment to the right */
+  align-items: center;
+}
+
+.actions-container button {
+  white-space: nowrap;
+  padding: 5px 10px;
 }
 
 .check-in-btn,
-.check-out-btn {
+.check-out-btn,
+.reload-btn {
   padding: 5px 10px;
   font-size: 12px;
   border: none;
@@ -759,6 +761,8 @@ tr {
   background-color: red;
   color: white;
 }
+
+
 
 /* Responsive adjustments for tablets */
 @media (max-width: 1024px) {
