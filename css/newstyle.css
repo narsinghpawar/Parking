@@ -742,8 +742,7 @@ tr {
 }
 
 .check-in-btn,
-.check-out-btn,
-.reload-btn {
+.check-out-btn {
   padding: 5px 10px;
   font-size: 12px;
   border: none;
