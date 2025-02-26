@@ -127,8 +127,6 @@ document.addEventListener("DOMContentLoaded", function () {
   setInterval(updateSessionTime, 1000);
 
   const allowedPagesForUsers = [
-    "checkin.html",
-    "checkout.html",
     "registration.html",
     "user.html",
     "index.html",
