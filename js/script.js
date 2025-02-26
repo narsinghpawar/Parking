@@ -296,20 +296,24 @@ function createActionButtons(vehicle) {
   let actionsContainer = document.createElement("span");
   actionsContainer.classList.add("actions-container");
 
+  // Reload Button
   let reloadButton = document.createElement("button");
-  reloadButton.textContent = "Reload";
+  reloadButton.innerHTML = '<i class="fas fa-sync-alt"></i> Reload';
   reloadButton.classList.add("reload-btn");
 
+  // Check-In Button
   let checkInButton = document.createElement("button");
-  checkInButton.textContent = "Check In";
+  checkInButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> Check In';
   checkInButton.classList.add("check-in-btn");
   checkInButton.onclick = () => handleCheckIn(vehicle);
 
+  // Check-Out Button
   let checkOutButton = document.createElement("button");
-  checkOutButton.textContent = "Check Out";
+  checkOutButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> Check Out';
   checkOutButton.classList.add("check-out-btn");
   checkOutButton.onclick = () => handleCheckOut(vehicle);
 
+  // Append buttons to the container
   actionsContainer.appendChild(reloadButton);
   actionsContainer.appendChild(checkInButton);
   actionsContainer.appendChild(checkOutButton);
