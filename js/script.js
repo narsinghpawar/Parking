@@ -1,5 +1,5 @@
 const apiUrl =
-  "https://script.google.com/macros/s/AKfycbxIELBAA9gDQw_vgwhXJExriP23WeQ0S_DG0T2rOKvX1ernv4_Tz0gZCl-RWL5K3tjY/exec";
+  "https://script.google.com/macros/s/AKfycbyZjjnXA3cK_Cpm41Ny4fBZL0BffEStmXjaWQX36nfqgvBPbl9-6WMSsYfkanm7JDp4/exec";
 function registrationScreen() {
   window.location.href = "registration.html";
 }
@@ -297,9 +297,6 @@ function createActionButtons(vehicle) {
   actionsContainer.classList.add("actions-container");
 
   // Reload Button
-  let reloadButton = document.createElement("button");
-  reloadButton.innerHTML = '<i class="fas fa-sync-alt"></i> Reload';
-  reloadButton.classList.add("reload-btn");
 
   // Check-In Button
   let checkInButton = document.createElement("button");
@@ -314,7 +311,7 @@ function createActionButtons(vehicle) {
   checkOutButton.onclick = () => handleCheckOut(vehicle);
 
   // Append buttons to the container
-  actionsContainer.appendChild(reloadButton);
+  // actionsContainer.appendChild(reloadButton);
   actionsContainer.appendChild(checkInButton);
   actionsContainer.appendChild(checkOutButton);
 
@@ -361,7 +358,28 @@ function createVehicleTable(records) {
 }
 
 // Dummy functions for Check-in and Check-out
-async function handleCheckIn(vehicle) {}
+async function handleCheckIn(vehicle) {
+  console.log(`Checked in: ${vehicle}`);
+  try {
+    const type = 4;
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: JSON.stringify({ vehicle, type }),
+    });
+    const result = await response.json();
+    if (result.status === 200) {
+      showToast("✅".concat(result.message), "success");
+    } else {
+      showToast("❌".concat(result.message), "error");
+    }
+    console.log(result);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 async function handleCheckOut(vehicle) {
   try {
