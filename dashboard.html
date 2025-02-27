@@ -10,7 +10,7 @@
     <script defer src="js/script.js"></script>
 </head>
 
-<body>
+<body onload="getDetaisForDashboard()">
     <div class="header-container" >
         <div class="header">Parking Management System</div>
         <div class="btn-logout" onclick="logout()">Logout</div>
@@ -25,7 +25,7 @@
         <div class="card-container first-row">
             <div class="card booking">
                 <div>
-                    <h2>150</h2>
+                    <h2 id="registeredCount"></h2>
                     <p>Register Vehicles</p>
                     <a href="#" class="more-info" onclick="registrationScreen()">More information</a>
                 </div>
@@ -34,7 +34,7 @@
         
             <div class="card parking">
                 <div>
-                    <h2>53</h2>
+                    <h2 id="parkedCount"></h2>
                     <p>Parked Vehicles Details</p>
                     <a href="#" class="more-info" onclick="dataTableScreen()">More information</a>
                 </div>
@@ -50,7 +50,7 @@
             </div>
             <div class="card users">
                 <div>
-                    <h2>7</h2>
+                    <h2></h2>
                     <p>Create Users</p>
                     <a href="#" class="more-info">More information</a>
                 </div>

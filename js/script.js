@@ -1,5 +1,5 @@
 const apiUrl =
-  "https://script.google.com/macros/s/AKfycbyZjjnXA3cK_Cpm41Ny4fBZL0BffEStmXjaWQX36nfqgvBPbl9-6WMSsYfkanm7JDp4/exec";
+  "https://script.google.com/macros/s/AKfycbxzEgwXPwur1dC1xRb-3nFJt8IQwZ8G-AmwuBZzGMrOYlwWM-tJvn5WLHOCznNt0wRP/exec";
 function registrationScreen() {
   window.location.href = "registration.html";
 }
@@ -411,6 +411,7 @@ function getVehicleDetails() {
     .then((data) => {
       console.log("Data received:", data);
       generateVehicleTable(data);
+      // getUniqueVehicleCount(data);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -447,4 +448,47 @@ function searchVehicleTable() {
     details.style.display =
       rowMatch || summaryText.includes(searchInput) ? "" : "none";
   }
+}
+
+function getUniqueVehicleCount(data) {
+  let uniqueVehicles = {};
+
+  for (let i = 1; i < data.length; i++) {
+    let vehicleNumber = data[i].vehicle;
+    if (vehicleNumber) {
+      console.log("unique code ");
+      let cleanNumber = vehicleNumber.trim().toUpperCase();
+      uniqueVehicles[cleanNumber] = true;
+    }
+  }
+  return Object.keys(uniqueVehicles);
+}
+
+function getParkedVehicleCount(data) {
+  let uniqueVehicles = {};
+  for (let i = 1; i < data.length; i++) {
+    let vehicleNumber = data[i].vehicle;
+    let checkIn = data[i].checkin;
+    let checkOut = data[i].checkout;
+    if (vehicleNumber && checkIn && !checkOut) {
+      let cleanNumber = vehicleNumber.trim().toUpperCase();
+      uniqueVehicles[cleanNumber] = true;
+    }
+  }
+  return Object.keys(uniqueVehicles);
+}
+
+function getDetaisForDashboard() {
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Data received:", data);
+      let countReg = getUniqueVehicleCount(data);
+      let parkedCount = getParkedVehicleCount(data);
+      document.getElementById("registeredCount").innerHTML = countReg.length;
+      document.getElementById("parkedCount").innerHTML = parkedCount.length;
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
 }
