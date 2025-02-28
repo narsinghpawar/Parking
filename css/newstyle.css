@@ -11,38 +11,112 @@ body {
   overflow-x: hidden;
 }
 
+/* Default header container styles */
 .header-container {
   display: flex;
   justify-content: space-between;
-  /* Align header on left and logout on right */
+  /* Align items horizontally */
   align-items: center;
-  /* Center items vertically */
-  background: #f1f1f1;
-  padding: 10px 20px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.header {
-  font-size: 20px;
+  padding: 15px 20px;
+  background-color: #f8f8f8;
+  /* Light background */
+  color: #333;
+  font-size: 18px;
   font-weight: bold;
-  flex-grow: 1;
+  flex-wrap: wrap;
+  /* Allow wrapping on smaller screens */
 }
 
-.btn-logout {
-  background-color: #e74c3c;
-  color: white;
+/* Header title */
+.header {
+  flex: 1;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Button styles */
+.btn-logout,
+.btn-reload,
+.btn-checkout {
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   text-align: center;
   white-space: nowrap;
-  font-weight: bold;
-
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 5px;
+  font-size: 12px;
 }
 
-.btn-logout:hover {
-  background-color: #c0392b;
+.btn-logout {
+  background-color: red;
+  color: white;
+}
+
+.btn-reload {
+  background-color: green;
+  color: white;
+}
+
+.btn-checkout {
+  background-color: red;
+  color: white;
+}
+
+/* Media Query for Mobile Screens (Up to 600px) */
+@media (max-width: 600px) {
+  .header-container {
+    flex-direction: column;
+    /* Stack items vertically */
+    text-align: center;
+
+  }
+
+  .header {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .btn-logout,
+  .btn-reload,
+  .btn-checkout {
+    width: 80%;
+    justify-content: center;
+    margin: 5px 0;
+    /* Add spacing between buttons */
+  }
+}
+
+/* Media Query for Tablets (601px - 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .header-container {
+    padding: 12px 15px;
+  }
+
+  .header {
+    font-size: 20px;
+  }
+
+  .btn-logout,
+  .btn-reload,
+  .btn-checkout {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+
+/* Media Query for Large Screens (1025px and above) */
+@media (min-width: 1025px) {
+  .header-container {
+    padding: 15px 30px;
+  }
+
+  .header {
+    font-size: 22px;
+  }
 }
 
 /* Breadcrumb Navigation */
@@ -397,7 +471,7 @@ details summary:hover {
 
 /* Table Styling */
 table {
-  width: 100%;
+  width: 98%;
   border-collapse: collapse;
 }
 
@@ -721,7 +795,7 @@ tr {
   font-weight: bold;
   border-radius: 5px;
   margin-bottom: 10px;
-  width: 100%;
+  width: 95%;
   /* Ensure full-width usage */
 }
 
@@ -738,7 +812,7 @@ tr {
 
 .actions-container button {
   white-space: nowrap;
-  padding: 5px 10px;
+  padding: 10px 10px;
 }
 
 .check-in-btn,
@@ -792,5 +866,157 @@ tr {
   .check-out-btn {
     width: 100%;
     /* Make buttons full width */
+  }
+}
+
+/* Default Styling */
+.search-container-vehcile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 10px;
+}
+
+/* 📱 Mobile (max-width: 600px) */
+@media (max-width: 600px) {
+  .search-container-vehcile {
+    flex-direction: column;
+    /* Stack elements vertically */
+    align-items: stretch;
+    /* Full width */
+  }
+
+  .search-box,
+  .btn-plot-ghrap {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* 📺 Tablets & Small Screens (max-width: 900px) */
+@media (max-width: 900px) {
+  .search-container-vehcile {
+    flex-wrap: wrap;
+    /* Allow wrapping if needed */
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex-grow: 1;
+  }
+
+  .btn-plot-ghrap {
+    white-space: nowrap;
+    /* Prevents button from shrinking */
+  }
+}
+
+
+.search-container {
+  position: relative;
+  width: 300px;
+  /* Adjust width as needed */
+  margin: 20px auto;
+  /* Centering */
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  /* Space for the icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  cursor: pointer;
+}
+
+.graph-container {
+  width: 90%;
+  max-width: 800px;
+  height: 300px;
+  margin: 20px auto;
+  padding: 10px;
+  background: wheat;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Default styles (already included in your CSS) */
+
+/* Media query for tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .search-container {
+    width: 80%;
+  }
+
+  .search-container input {
+    font-size: 14px;
+    padding: 8px 35px 8px 8px;
+  }
+
+  .search-icon {
+    right: 8px;
+  }
+
+  .graph-container {
+    height: 250px;
+    max-width: 90%;
+  }
+}
+
+/* Media query for mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+  .search-container {
+    width: 90%;
+  }
+
+  .search-container input {
+    font-size: 13px;
+    padding: 8px 30px 8px 8px;
+  }
+
+  .search-icon {
+    right: 5px;
+  }
+
+  .graph-container {
+    height: 200px;
+    max-width: 95%;
+  }
+}
+
+/* Media query for very small screens (max-width: 320px) */
+@media (max-width: 320px) {
+  .search-container input {
+    font-size: 12px;
+    padding: 6px 28px 6px 6px;
+  }
+
+  .search-icon {
+    font-size: 12px;
+    right: 3px;
+  }
+
+  .graph-container {
+    height: 180px;
+    max-width: 100%;
   }
 }

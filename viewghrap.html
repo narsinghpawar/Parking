@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/newstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <title>Dashboard Summary</title>
+</head>
+
+<body>
+    <div class="header-container">
+        <div class="header">Parking Management System</div>
+        <div class="btn-logout" onclick="logout()">Logout
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+        <div class="btn-reload" onclick="dataTableScreen()">Sync Data
+            <i class="fas fa-sync"></i>
+        </div>
+        <div class="btn-checkout">Bulk check out
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+    </div>
+    <div class="breadcrumb">
+        <div class="breadcrumb-details">
+            <a href="#" class="back-arrow">←</a>
+            <a href="#" onclick="checkAccess()">Dashboard</a>
+            <span class="separator">/</span>
+            <a href="#">View Ghrap</a>
+        </div>
+        <div id="session-name"></div>
+    </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search vehicle...">
+        <i class="fas fa-search search-icon" onclick="updateChart()"></i>
+    </div>
+   
+    <div class="graph-container" style="display: none;" id="canvas-data">
+        <canvas id="scatterChart"></canvas>
+    </div> 
+</body>
+
+</html>

@@ -10,10 +10,18 @@
     <title>Dashboard Cards</title>
 </head>
 
-<body>
+<body onload="getDetaisForDashboard()">
     <div class="header-container">
         <div class="header">Parking Management System</div>
-        <div class="btn-logout" onclick="logout()">Logout</div>
+        <div class="btn-logout" onclick="logout()">Logout
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+        <div class="btn-reload" onclick="dataTableScreen()">Sync Data
+            <i class="fas fa-sync"></i>
+        </div>
+        <div class="btn-checkout">Bulk check out
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
     </div>
 
     <div class="breadcrumb">
@@ -23,7 +31,7 @@
     <div class="card-container first-row">
         <div class="card booking">
             <div>
-                <h2>150</h2>
+                <h2 id="registeredCount"></h2>
                 <p>Register Vehicles</p>
                 <a href="#" class="more-info" onclick="registrationScreen()">More information</a>
             </div>
@@ -32,7 +40,7 @@
 
         <div class="card parking">
             <div>
-                <h2>53</h2>
+                <h2 id="parkedCount"></h2>
                 <p>Parked Vehicles Details</p>
                 <a href="#" class="more-info" onclick="dataTableScreen()">More information</a>
             </div>

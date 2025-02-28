@@ -485,10 +485,198 @@ function getDetaisForDashboard() {
       console.log("Data received:", data);
       let countReg = getUniqueVehicleCount(data);
       let parkedCount = getParkedVehicleCount(data);
+      console.log("Hello Wolrd !");
       document.getElementById("registeredCount").innerHTML = countReg.length;
       document.getElementById("parkedCount").innerHTML = parkedCount.length;
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
     });
+}
+
+function viewGhrap() {
+  window.location.href = "viewghrap.html";
+}
+
+const bikeData = {
+  "KA 38 Y 5151": [
+    {
+      name: "Narsingh",
+      image: "",
+      checkin: "26/02/2025, 6:43:14 PM",
+      checkout: "26/02/2025, 6:50:00 PM",
+    },
+    {
+      name: "Narsingh",
+      image: "",
+      checkin: "26/02/2025, 8:00:00 PM",
+      checkout: "26/02/2025, 8:45:30 PM",
+    },
+    {
+      name: "Narsingh",
+      image: "",
+      checkin: "26/02/2025, 9:15:45 PM",
+      checkout: "26/02/2025, 9:50:10 PM",
+    },
+    {
+      name: "Narsingh",
+      image: "",
+      checkin: "26/02/2025, 10:30:00 PM",
+      checkout: "26/02/2025, 11:05:00 PM",
+    },
+    {
+      name: "Narsingh",
+      image: "",
+      checkin: "26/02/2025, 11:45:00 PM",
+      checkout: "27/02/2025, 12:30:00 AM",
+    },
+  ],
+  "KA 45 X 9999": [
+    {
+      name: "Sainath",
+      image: "",
+      checkin: "26/02/2025, 7:00:00 PM",
+      checkout: "26/02/2025, 7:40:00 PM",
+    },
+    {
+      name: "Sainath",
+      image: "",
+      checkin: "26/02/2025, 8:30:00 PM",
+      checkout: "26/02/2025, 9:15:00 PM",
+    },
+  ],
+};
+
+// Function to parse datetime string into Date object
+function parseDateTime(dateTimeStr) {
+  return new Date(dateTimeStr.replace(/(\d+)\/(\d+)\/(\d+),/, "$3-$2-$1"));
+}
+
+// Function to format time difference as hh:mm:ss
+function formatTimeSpent(ms) {
+  let seconds = Math.floor(ms / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+
+  seconds %= 60;
+  minutes %= 60;
+
+  return `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
+
+let chartInstance = null; // Store chart instance
+
+function updateChart() {
+  const bikeNumber = document.getElementById("searchInput").value.trim();
+  document.getElementById("canvas-data").style.display = "block";
+  if (!bikeNumber || !bikeData[bikeNumber]) {
+    alert("Bike number not found!");
+    return;
+  }
+
+  let dataPoints = bikeData[bikeNumber].map((entry) => {
+    let checkinTime = parseDateTime(entry.checkin);
+    let checkoutTime = parseDateTime(entry.checkout);
+    let timeSpentMs = checkoutTime - checkinTime; // Time spent in milliseconds
+
+    return {
+      x: checkinTime,
+      y: timeSpentMs,
+      timeFormatted: formatTimeSpent(timeSpentMs),
+    };
+  });
+
+  // Destroy previous chart instance if exists
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+
+  // Create new chart
+
+  const ctx = document.getElementById("scatterChart").getContext("2d");
+  chartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: `Check-in vs Time Spent (Hours) - ${bikeNumber}`,
+          data: dataPoints.length ? dataPoints : [{ x: null, y: null }], // Prevent empty dataset issue
+          backgroundColor: "red",
+          borderColor: "blue",
+          borderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          pointBackgroundColor: "red",
+          pointBorderColor: "#fff",
+          fill: false,
+          tension: 0.3,
+          hitRadius: 10, // Ensures hover works smoothly
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        tooltip: {
+          enabled: true,
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          titleFont: { size: 14 },
+          bodyFont: { size: 14 },
+          padding: 10,
+          displayColors: false,
+          callbacks: {
+            label: function (tooltipItem) {
+              return `Time Spent: ${tooltipItem.raw.timeFormatted}`;
+            },
+          },
+        },
+        legend: {
+          labels: {
+            font: { size: 14 },
+          },
+        },
+      },
+      interaction: {
+        mode: "index",
+        intersect: false,
+        axis: "x",
+      },
+      hover: {
+        mode: "nearest",
+        intersect: true,
+        animationDuration: 400,
+      },
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            unit: "hour",
+            displayFormats: {
+              hour: "h a", // ✅ Corrected time format ("7 pm", "8 pm")
+            },
+          },
+          title: {
+            display: true,
+            text: "Check-in Time",
+            font: { size: 14 },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: "Time Spent (hh:mm:ss)",
+            font: { size: 14 },
+          },
+          ticks: {
+            callback: function (value) {
+              return formatTimeSpent(value); // Convert value to hh:mm:ss format
+            },
+          },
+        },
+      },
+    },
+  });
 }
