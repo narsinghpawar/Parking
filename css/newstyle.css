@@ -869,54 +869,11 @@ tr {
   }
 }
 
-/* Default Styling */
-.search-container-vehcile {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  gap: 10px;
-}
-
-/* 📱 Mobile (max-width: 600px) */
-@media (max-width: 600px) {
-  .search-container-vehcile {
-    flex-direction: column;
-    /* Stack elements vertically */
-    align-items: stretch;
-    /* Full width */
-  }
-
-  .search-box,
-  .btn-plot-ghrap {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-/* 📺 Tablets & Small Screens (max-width: 900px) */
-@media (max-width: 900px) {
-  .search-container-vehcile {
-    flex-wrap: wrap;
-    /* Allow wrapping if needed */
-    justify-content: space-between;
-  }
-
-  .search-box {
-    flex-grow: 1;
-  }
-
-  .btn-plot-ghrap {
-    white-space: nowrap;
-    /* Prevents button from shrinking */
-  }
-}
-
-
+/* Default styles for larger screens */
 .search-container {
   position: relative;
   width: 300px;
-  /* Adjust width as needed */
+  /* Default width */
   margin: 20px auto;
   /* Centering */
 }
@@ -924,7 +881,7 @@ tr {
 .search-container input {
   width: 100%;
   padding: 10px 40px 10px 10px;
-  /* Space for the icon */
+  /* Space for icon */
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
@@ -952,6 +909,7 @@ tr {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 canvas {
@@ -959,9 +917,7 @@ canvas {
   height: 100% !important;
 }
 
-/* Default styles (already included in your CSS) */
-
-/* Media query for tablets (max-width: 768px) */
+/* ✅ Media query for tablets (max-width: 768px) */
 @media (max-width: 768px) {
   .search-container {
     width: 80%;
@@ -978,11 +934,21 @@ canvas {
 
   .graph-container {
     height: 250px;
-    max-width: 90%;
+    max-width: 95%;
+  }
+
+  /* 📊 Graph Table Adjustments */
+  .graph-table {
+    font-size: 14px;
+  }
+
+  .graph-table th,
+  .graph-table td {
+    padding: 8px;
   }
 }
 
-/* Media query for mobile devices (max-width: 480px) */
+/* ✅ Media query for mobile devices (max-width: 480px) */
 @media (max-width: 480px) {
   .search-container {
     width: 90%;
@@ -999,11 +965,25 @@ canvas {
 
   .graph-container {
     height: 200px;
-    max-width: 95%;
+    max-width: 98%;
+  }
+
+  /* 📊 Graph Table Adjustments */
+  .graph-table {
+    font-size: 12px;
+    overflow-x: auto;
+    /* Scroll for smaller screens */
+    display: block;
+    white-space: nowrap;
+  }
+
+  .graph-table th,
+  .graph-table td {
+    padding: 6px;
   }
 }
 
-/* Media query for very small screens (max-width: 320px) */
+/* ✅ Media query for very small screens (max-width: 320px) */
 @media (max-width: 320px) {
   .search-container input {
     font-size: 12px;
@@ -1018,5 +998,15 @@ canvas {
   .graph-container {
     height: 180px;
     max-width: 100%;
+  }
+
+  /* 📊 Graph Table Adjustments */
+  .graph-table {
+    font-size: 11px;
+  }
+
+  .graph-table th,
+  .graph-table td {
+    padding: 5px;
   }
 }
