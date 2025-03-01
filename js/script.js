@@ -498,54 +498,77 @@ function viewGhrap() {
   window.location.href = "viewghrap.html";
 }
 
-const bikeData = {
-  "KA 38 Y 5151": [
-    {
-      name: "Narsingh",
-      image: "",
-      checkin: "26/02/2025, 6:43:14 PM",
-      checkout: "26/02/2025, 6:50:00 PM",
-    },
-    {
-      name: "Narsingh",
-      image: "",
-      checkin: "26/02/2025, 8:00:00 PM",
-      checkout: "26/02/2025, 8:45:30 PM",
-    },
-    {
-      name: "Narsingh",
-      image: "",
-      checkin: "26/02/2025, 9:15:45 PM",
-      checkout: "26/02/2025, 9:50:10 PM",
-    },
-    {
-      name: "Narsingh",
-      image: "",
-      checkin: "26/02/2025, 10:30:00 PM",
-      checkout: "26/02/2025, 11:05:00 PM",
-    },
-    {
-      name: "Narsingh",
-      image: "",
-      checkin: "26/02/2025, 11:45:00 PM",
-      checkout: "27/02/2025, 12:30:00 AM",
-    },
-  ],
-  "KA 45 X 9999": [
-    {
-      name: "Sainath",
-      image: "",
-      checkin: "26/02/2025, 7:00:00 PM",
-      checkout: "26/02/2025, 7:40:00 PM",
-    },
-    {
-      name: "Sainath",
-      image: "",
-      checkin: "26/02/2025, 8:30:00 PM",
-      checkout: "26/02/2025, 9:15:00 PM",
-    },
-  ],
-};
+let allBikeData = [];
+function getDataPlotGhrap() {
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Data received----:", data);
+      allBikeData = data;
+      // updateChart(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+}
+
+function updateGhrap() {
+  const bikeNumber = document.getElementById("searchInput").value.trim();
+  if (!bikeNumber) {
+    alert("Please enter a bike number!");
+    return;
+  }
+
+  updateChart(allBikeData, bikeNumber);
+}
+// const bikeData = {
+//   "KA 38 Y 5151": [
+//     {
+//       name: "Narsingh",
+//       image: "",
+//       checkin: "26/02/2025, 6:43:14 PM",
+//       checkout: "26/02/2025, 6:50:00 PM",
+//     },
+//     {
+//       name: "Narsingh",
+//       image: "",
+//       checkin: "26/02/2025, 8:00:00 PM",
+//       checkout: "26/02/2025, 8:45:30 PM",
+//     },
+//     {
+//       name: "Narsingh",
+//       image: "",
+//       checkin: "26/02/2025, 9:15:45 PM",
+//       checkout: "26/02/2025, 9:50:10 PM",
+//     },
+//     {
+//       name: "Narsingh",
+//       image: "",
+//       checkin: "26/02/2025, 10:30:00 PM",
+//       checkout: "26/02/2025, 11:05:00 PM",
+//     },
+//     {
+//       name: "Narsingh",
+//       image: "",
+//       checkin: "26/02/2025, 11:45:00 PM",
+//       checkout: "27/02/2025, 12:30:00 AM",
+//     },
+//   ],
+//   "KA 45 X 9999": [
+//     {
+//       name: "Sainath",
+//       image: "",
+//       checkin: "26/02/2025, 7:00:00 PM",
+//       checkout: "26/02/2025, 7:40:00 PM",
+//     },
+//     {
+//       name: "Sainath",
+//       image: "",
+//       checkin: "26/02/2025, 8:30:00 PM",
+//       checkout: "26/02/2025, 9:15:00 PM",
+//     },
+//   ],
+// };
 
 // Function to parse datetime string into Date object
 function parseDateTime(dateTimeStr) {
@@ -568,56 +591,121 @@ function formatTimeSpent(ms) {
 
 let chartInstance = null; // Store chart instance
 
-function updateChart() {
-  const bikeNumber = document.getElementById("searchInput").value.trim();
+function parseCustomDate(dateStr) {
+  // Convert "26/2/2025, 6:43:14 pm" → "2025-02-26T18:43:14"
+  let parts = dateStr.match(
+    /(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2}):(\d{2}) (am|pm)/i
+  );
+
+  if (!parts) {
+    console.error("❌ Invalid date format:", dateStr);
+    return null;
+  }
+
+  let [_, day, month, year, hour, minute, second, period] = parts;
+
+  // Convert values to numbers
+  day = parseInt(day);
+  month = parseInt(month);
+  year = parseInt(year);
+  hour = parseInt(hour);
+  minute = parseInt(minute);
+  second = parseInt(second);
+
+  // Convert 12-hour format to 24-hour
+  if (period.toLowerCase() === "pm" && hour !== 12) {
+    hour += 12;
+  } else if (period.toLowerCase() === "am" && hour === 12) {
+    hour = 0;
+  }
+
+  // Ensure two-digit formatting
+  let formattedDateStr = `${year}-${String(month).padStart(2, "0")}-${String(
+    day
+  ).padStart(2, "0")}T${String(hour).padStart(2, "0")}:${String(
+    minute
+  ).padStart(2, "0")}:${String(second).padStart(2, "0")}`;
+
+  return new Date(formattedDateStr);
+}
+
+function updateChart(records, bikeNumber) {
   document.getElementById("canvas-data").style.display = "block";
-  if (!bikeNumber || !bikeData[bikeNumber]) {
-    alert("Bike number not found!");
+
+  let bikeData = records.filter(
+    (entry) =>
+      entry.vehicle.trim().toUpperCase() === bikeNumber.trim().toUpperCase() &&
+      entry.checkout // Exclude parked bikes
+  );
+
+  if (bikeData.length === 0) {
+    alert("No valid check-out data found for this bike!");
     return;
   }
 
-  let dataPoints = bikeData[bikeNumber].map((entry) => {
-    let checkinTime = parseDateTime(entry.checkin);
-    let checkoutTime = parseDateTime(entry.checkout);
-    let timeSpentMs = checkoutTime - checkinTime; // Time spent in milliseconds
+  let dataPoints = bikeData
+    .map((entry) => {
+      let checkinTime = parseCustomDate(entry.checkin);
+      let checkoutTime = parseCustomDate(entry.checkout);
 
-    return {
-      x: checkinTime,
-      y: timeSpentMs,
-      timeFormatted: formatTimeSpent(timeSpentMs),
-    };
-  });
+      if (!checkinTime || !checkoutTime) {
+        console.error("❌ Invalid date in entry:", entry);
+        return null;
+      }
 
-  // Destroy previous chart instance if exists
-  if (chartInstance) {
-    chartInstance.destroy();
+      let timeSpentMs = checkoutTime - checkinTime;
+
+      return {
+        x: checkinTime,
+        y: timeSpentMs / 1000, // Convert to seconds
+        checkinFormatted: checkinTime.toLocaleString("en-GB", {
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        }),
+        timeFormatted: formatTimeSpent(timeSpentMs),
+      };
+    })
+    .filter(Boolean);
+
+  if (dataPoints.length === 0) {
+    alert("No valid data points found!");
+    return;
   }
 
-  // Create new chart
+  if (window.chartInstance) {
+    window.chartInstance.destroy();
+  }
 
   const ctx = document.getElementById("scatterChart").getContext("2d");
-  chartInstance = new Chart(ctx, {
+  window.chartInstance = new Chart(ctx, {
     type: "line",
     data: {
       datasets: [
         {
-          label: `Check-in vs Time Spent (Hours) - ${bikeNumber}`,
-          data: dataPoints.length ? dataPoints : [{ x: null, y: null }], // Prevent empty dataset issue
+          label: `Check-in vs Time Spent - ${bikeNumber}`,
+          data: dataPoints,
           backgroundColor: "red",
           borderColor: "blue",
           borderWidth: 2,
           pointRadius: 6,
           pointHoverRadius: 8,
-          pointBackgroundColor: "red",
-          pointBorderColor: "#fff",
           fill: false,
           tension: 0.3,
-          hitRadius: 10, // Ensures hover works smoothly
         },
       ],
     },
     options: {
       responsive: true,
+      interaction: {
+        mode: "nearest",
+        intersect: false,
+      },
       plugins: {
         tooltip: {
           enabled: true,
@@ -627,52 +715,27 @@ function updateChart() {
           padding: 10,
           displayColors: false,
           callbacks: {
+            title: function (tooltipItems) {
+              return `Check-in: ${tooltipItems[0].raw.checkinFormatted}`;
+            },
             label: function (tooltipItem) {
               return `Time Spent: ${tooltipItem.raw.timeFormatted}`;
             },
           },
         },
-        legend: {
-          labels: {
-            font: { size: 14 },
-          },
-        },
-      },
-      interaction: {
-        mode: "index",
-        intersect: false,
-        axis: "x",
-      },
-      hover: {
-        mode: "nearest",
-        intersect: true,
-        animationDuration: 400,
       },
       scales: {
         x: {
           type: "time",
-          time: {
-            unit: "hour",
-            displayFormats: {
-              hour: "h a", // ✅ Corrected time format ("7 pm", "8 pm")
-            },
-          },
-          title: {
-            display: true,
-            text: "Check-in Time",
-            font: { size: 14 },
-          },
+          time: { unit: "hour", displayFormats: { hour: "MMM dd, h a" } },
+          title: { display: true, text: "Check-in Time" },
         },
         y: {
           beginAtZero: true,
-          title: {
-            display: true,
-            text: "Time Spent (hh:mm:ss)",
-            font: { size: 14 },
-          },
+          title: { display: true, text: "Time Spent (hh:mm:ss)" },
           ticks: {
             callback: function (value) {
-              return formatTimeSpent(value); // Convert value to hh:mm:ss format
+              return formatTimeSpent(value * 1000);
             },
           },
         },

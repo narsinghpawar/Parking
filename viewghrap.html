@@ -12,7 +12,7 @@
     <title>Dashboard Summary</title>
 </head>
 
-<body>
+<body onload="getDataPlotGhrap()">
     <div class="header-container">
         <div class="header">Parking Management System</div>
         <div class="btn-logout" onclick="logout()">Logout
@@ -36,7 +36,7 @@
     </div>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search vehicle...">
-        <i class="fas fa-search search-icon" onclick="updateChart()"></i>
+        <i class="fas fa-search search-icon" onclick="updateGhrap()"></i>
     </div>
    
     <div class="graph-container" style="display: none;" id="canvas-data">
