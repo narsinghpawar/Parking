@@ -680,3 +680,10 @@ function updateChart() {
     },
   });
 }
+
+function syncData() {
+  showToast("✅ Data Synced Successfully", "success");
+  setInterval(() => {
+    location.reload();
+  }, 3000);
+}
