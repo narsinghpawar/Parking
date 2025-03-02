@@ -1,5 +1,5 @@
 const apiUrl =
-  "https://script.google.com/macros/s/AKfycbzKHKU_YqkTPSgEmJkfuqvcoa25PwfXi-uy0CLMUigtkEX5sR7bIatxM7NhOqfmsWmg/exec";
+  "https://script.google.com/macros/s/AKfycbziQiqC2cuZzO2u4b_z6b2K7UpWINpRxLg8OFnYqBY9ijLQ1LfVetT4O9rW_96qAuc6/exec";
 function registrationScreen() {
   window.location.href = "registration.html";
 }
@@ -784,7 +784,9 @@ async function creatUserRole() {
     })
     .then((result) => {
       if (result.statusCode === 200) {
-        showToast("✅ User Role Created Successfully", "success");
+        showToast("✅".concat(result.message), "success");
+      } else {
+        showToast("❌".concat(result.message), "error");
       }
       console.log("Success:", result);
     })
