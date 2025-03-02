@@ -1,5 +1,5 @@
 const apiUrl =
-  "https://script.google.com/macros/s/AKfycbySSLi3HXGH9LVe-elTKPj4VCD0gEZRpHAb3Sahn4nsu_aftfUzPU70kZKb575d37vn/exec";
+  "https://script.google.com/macros/s/AKfycbzKHKU_YqkTPSgEmJkfuqvcoa25PwfXi-uy0CLMUigtkEX5sR7bIatxM7NhOqfmsWmg/exec";
 function registrationScreen() {
   window.location.href = "registration.html";
 }
@@ -485,7 +485,7 @@ function getDetaisForDashboard() {
       console.log("Data received:", data);
       let countReg = getUniqueVehicleCount(data);
       let parkedCount = getParkedVehicleCount(data);
-      console.log("Hello Wolrd !");
+      console.log("Hello Wolrd !" + countReg.length);
       document.getElementById("registeredCount").innerHTML = countReg.length;
       document.getElementById("parkedCount").innerHTML = parkedCount.length;
     })
@@ -571,28 +571,20 @@ function updateGhrap() {
 // };
 
 // Function to parse datetime string into Date object
-function parseDateTime(dateTimeStr) {
-  return new Date(dateTimeStr.replace(/(\d+)\/(\d+)\/(\d+),/, "$3-$2-$1"));
-}
-
-// Function to format time difference as hh:mm:ss
-function formatTimeSpent(ms) {
-  let seconds = Math.floor(ms / 1000);
-  let minutes = Math.floor(seconds / 60);
-  let hours = Math.floor(minutes / 60);
-
-  seconds %= 60;
-  minutes %= 60;
-
-  return `${hours.toString().padStart(2, "0")}:${minutes
-    .toString()
-    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-}
-
-let chartInstance = null; // Store chart instance
-
+// Function to parse different date formats
 function parseCustomDate(dateStr) {
-  // Convert "26/2/2025, 6:43:14 pm" → "2025-02-26T18:43:14"
+  if (!dateStr) {
+    console.error("❌ Received an empty date string");
+    return null;
+  }
+
+  // Check if input is already a valid JavaScript Date
+  let parsedDate = Date.parse(dateStr);
+  if (!isNaN(parsedDate)) {
+    return new Date(parsedDate);
+  }
+
+  // Handle "26/2/2025, 6:43:14 pm" format
   let parts = dateStr.match(
     /(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2}):(\d{2}) (am|pm)/i
   );
@@ -619,7 +611,7 @@ function parseCustomDate(dateStr) {
     hour = 0;
   }
 
-  // Ensure two-digit formatting
+  // Format as "YYYY-MM-DDTHH:MM:SS"
   let formattedDateStr = `${year}-${String(month).padStart(2, "0")}-${String(
     day
   ).padStart(2, "0")}T${String(hour).padStart(2, "0")}:${String(
@@ -629,13 +621,29 @@ function parseCustomDate(dateStr) {
   return new Date(formattedDateStr);
 }
 
+// Function to format time difference as hh:mm:ss
+function formatTimeSpent(ms) {
+  let seconds = Math.floor(ms / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+
+  seconds %= 60;
+  minutes %= 60;
+
+  return `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
+
+let chartInstance = null; // Store chart instance
+
 function updateChart(records, bikeNumber) {
   document.getElementById("canvas-data").style.display = "block";
 
   let bikeData = records.filter(
     (entry) =>
       entry.vehicle.trim().toUpperCase() === bikeNumber.trim().toUpperCase() &&
-      entry.checkout // Exclude parked bikes
+      entry.checkout
   );
 
   if (bikeData.length === 0) {
@@ -657,7 +665,7 @@ function updateChart(records, bikeNumber) {
 
       return {
         x: checkinTime,
-        y: timeSpentMs / 1000, // Convert to seconds
+        y: timeSpentMs / (1000 * 60), // Convert to minutes
         checkinFormatted: checkinTime.toLocaleString("en-GB", {
           weekday: "short",
           year: "numeric",
@@ -672,6 +680,8 @@ function updateChart(records, bikeNumber) {
       };
     })
     .filter(Boolean);
+
+  console.log("📊 Data Points:", dataPoints); // Debugging line
 
   if (dataPoints.length === 0) {
     alert("No valid data points found!");
@@ -690,13 +700,14 @@ function updateChart(records, bikeNumber) {
         {
           label: `Check-in vs Time Spent - ${bikeNumber}`,
           data: dataPoints,
-          backgroundColor: "red",
           borderColor: "blue",
-          borderWidth: 2,
+          backgroundColor: "rgba(0, 0, 255, 0.5)", // Semi-transparent blue
+          borderWidth: 3, // Make the line more visible
           pointRadius: 6,
           pointHoverRadius: 8,
-          fill: false,
-          tension: 0.3,
+          fill: false, // No background fill
+          tension: 0.3, // Smooth line
+          showLine: true, // Ensure line is visible
         },
       ],
     },
@@ -727,15 +738,18 @@ function updateChart(records, bikeNumber) {
       scales: {
         x: {
           type: "time",
-          time: { unit: "hour", displayFormats: { hour: "MMM dd, h a" } },
+          time: {
+            unit: "minute",
+            displayFormats: { minute: "MMM dd, h:mm a" },
+          },
           title: { display: true, text: "Check-in Time" },
         },
         y: {
           beginAtZero: true,
-          title: { display: true, text: "Time Spent (hh:mm:ss)" },
+          title: { display: true, text: "Time Spent (minutes)" },
           ticks: {
             callback: function (value) {
-              return formatTimeSpent(value * 1000);
+              return formatTimeSpent(value * 60 * 1000);
             },
           },
         },
