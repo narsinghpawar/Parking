@@ -1,5 +1,5 @@
 const apiUrl =
-  "https://script.google.com/macros/s/AKfycbxzEgwXPwur1dC1xRb-3nFJt8IQwZ8G-AmwuBZzGMrOYlwWM-tJvn5WLHOCznNt0wRP/exec";
+  "https://script.google.com/macros/s/AKfycbySSLi3HXGH9LVe-elTKPj4VCD0gEZRpHAb3Sahn4nsu_aftfUzPU70kZKb575d37vn/exec";
 function registrationScreen() {
   window.location.href = "registration.html";
 }
@@ -742,6 +742,42 @@ function updateChart(records, bikeNumber) {
       },
     },
   });
+}
+
+function creatUser() {
+  window.location.href = "createUser.html";
+}
+
+async function creatUserRole() {
+  let username = document.getElementById("username").value.trim();
+  const securePassword = document.getElementById("password").value.trim();
+  const type = 6;
+  let role = document.getElementById("role").value;
+  let password = await protectPassword(securePassword);
+  console.log("username " + username + "password " + password + "role " + role);
+  fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    body: JSON.stringify({ username, password, type, role }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((result) => {
+      if (result.statusCode === 200) {
+        showToast("✅ User Role Created Successfully", "success");
+      }
+      console.log("Success:", result);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      showToast("error", error.message);
+    });
 }
 
 function syncData() {
